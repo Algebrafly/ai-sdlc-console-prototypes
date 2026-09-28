@@ -1,0 +1,1128 @@
+/**
+ * 团队管理（team）页面专属补充样式
+ * ------------------------------------------------------------
+ * 独占前缀：根类 .ac-tmg，私有类一律 .ac-tmg-*（不使用 .ac-tm-，该前缀在本项目语义上属测试模块）。
+ * 仅复用 style.css 中已定义的设计 token（--brand / --ai / --text-* / --border* / --radius* / --sp-*），
+ * 不重复定义 .ac-page 等已在其它页面 css 中出现的全局类。
+ * 所有手绘 SVG 图表的文字与线条样式集中在「SVG 通用」一节。
+ */
+
+.ac-tmg {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+}
+
+/* 区块小标题在弹性容器中由 gap 统一控制间距，避免与自身 margin 叠加 */
+.ac-tmg > .ac-section-title {
+  margin-bottom: 0;
+}
+
+/* 卡片间距同样交给 gap，避免 14px + 16px 双重留白 */
+.ac-tmg .ac-card,
+.ac-tmg .ac-metric-grid {
+  margin-bottom: 0;
+}
+
+/* ============================================================
+   SVG 通用（手绘图表的文字 / 线条 / 填充）
+   ============================================================ */
+.ac-tmg-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.ac-tmg-axis {
+  stroke: var(--border);
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+}
+
+.ac-tmg-split {
+  stroke: #b9c0cc;
+  stroke-width: 1.2;
+  stroke-dasharray: 5 4;
+}
+
+.ac-tmg-split-v {
+  stroke: #b9c0cc;
+  stroke-width: 1.2;
+  stroke-dasharray: 5 4;
+}
+
+.ac-tmg-axis-label {
+  font-size: 10.5px;
+  fill: var(--text-3);
+  font-family: var(--font-mono);
+}
+
+.ac-tmg-axis-label--right {
+  fill: var(--ai);
+}
+
+.ac-tmg-axis-sub {
+  font-size: 9.5px;
+  fill: var(--text-3);
+}
+
+.ac-tmg-axis-title {
+  font-size: 10.5px;
+  font-weight: 700;
+  fill: var(--text-2);
+  letter-spacing: 0.02em;
+}
+
+.ac-tmg-line {
+  stroke: var(--ai);
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.ac-tmg-line-dot {
+  fill: #fff;
+  stroke: var(--ai);
+  stroke-width: 2.4;
+}
+
+.ac-tmg-line-label {
+  font-size: 10.5px;
+  font-weight: 700;
+  fill: var(--ai-deep);
+  font-family: var(--font-mono);
+}
+
+.ac-tmg-area {
+  fill: var(--brand);
+  opacity: 0.08;
+}
+
+.ac-tmg-bar-track {
+  fill: #eceff4;
+}
+
+.ac-tmg-bar-ghost {
+  fill: #d7dce5;
+}
+
+.ac-tmg-bar-name {
+  font-size: 11.5px;
+  font-weight: 600;
+  fill: var(--text-1);
+}
+
+.ac-tmg-bar-value {
+  font-size: 10.5px;
+  fill: var(--text-2);
+  font-family: var(--font-mono);
+}
+
+.ac-tmg-bar-num {
+  font-size: 10px;
+  fill: var(--text-3);
+  font-family: var(--font-mono);
+}
+
+.ac-tmg-bar-num--strong {
+  font-weight: 700;
+  fill: var(--text-1);
+}
+
+.ac-tmg-delta-text {
+  font-size: 10.5px;
+  fill: var(--text-2);
+  font-family: var(--font-mono);
+}
+
+.ac-tmg-delta-text--off {
+  fill: var(--danger);
+  font-weight: 700;
+}
+
+.ac-tmg-tree-node {
+  cursor: pointer;
+}
+
+/* ============================================================
+   1. 团队编制
+   ============================================================ */
+
+/* ---------- 组织架构树 ---------- */
+.ac-tmg-tree-body {
+  padding: 14px 16px 8px;
+  overflow-x: auto;
+}
+
+.ac-tmg-tree-root {
+  fill: var(--sidebar-bg);
+  stroke: var(--brand-ink);
+  stroke-width: 1;
+}
+
+.ac-tmg-tree-root-name {
+  font-size: 14px;
+  font-weight: 800;
+  fill: #fff;
+  letter-spacing: 0.04em;
+}
+
+.ac-tmg-tree-root-sub {
+  font-size: 10px;
+  fill: var(--sidebar-text-dim);
+}
+
+.ac-tmg-tree-link {
+  stroke: #c8cfda;
+  stroke-width: 1.4;
+  fill: none;
+}
+
+.ac-tmg-tree-card {
+  fill: #fff;
+  stroke: var(--border);
+  stroke-width: 1;
+  transition: stroke 0.15s ease, fill 0.15s ease;
+}
+
+.ac-tmg-tree-node:hover .ac-tmg-tree-card {
+  stroke: #b6bed0;
+  fill: var(--bg-subtle);
+}
+
+.ac-tmg-tree-card--active {
+  fill: var(--brand-soft);
+  stroke: var(--brand);
+  stroke-width: 2;
+}
+
+.ac-tmg-tree-initial {
+  font-size: 12px;
+  font-weight: 700;
+  fill: #fff;
+}
+
+.ac-tmg-tree-name {
+  font-size: 12px;
+  font-weight: 700;
+  fill: var(--text-1);
+}
+
+.ac-tmg-tree-id {
+  font-size: 9px;
+  fill: var(--text-3);
+  font-family: var(--font-mono);
+}
+
+.ac-tmg-tree-sep {
+  stroke: var(--border-soft);
+  stroke-width: 1;
+}
+
+.ac-tmg-tree-meta {
+  font-size: 9.5px;
+  fill: var(--text-2);
+}
+
+.ac-tmg-tree-caption {
+  font-size: 10px;
+  fill: var(--text-3);
+}
+
+/* ---------- 团队卡片网格 ---------- */
+.ac-tmg-team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 14px;
+  align-items: stretch;
+}
+
+.ac-tmg-team-card {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  padding: 14px 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-xs);
+  min-width: 0;
+  cursor: pointer;
+  transition: box-shadow 0.16s ease, border-color 0.16s ease, transform 0.16s ease;
+}
+
+.ac-tmg-team-card:hover {
+  box-shadow: var(--shadow-sm);
+  border-color: #c9cfda;
+}
+
+.ac-tmg-team-card--active {
+  border-color: var(--brand);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+.ac-tmg-team-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  min-width: 0;
+}
+
+.ac-tmg-team-headtext {
+  min-width: 0;
+}
+
+.ac-tmg-team-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-1);
+  line-height: 1.35;
+}
+
+.ac-tmg-team-mission {
+  font-size: 12px;
+  color: var(--text-2);
+  line-height: 1.65;
+}
+
+.ac-tmg-team-leader,
+.ac-tmg-team-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 6px 0;
+  border-top: 1px solid var(--border-soft);
+}
+
+.ac-tmg-team-foot {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-top: 9px;
+  border-top: 1px solid var(--border-soft);
+  margin-top: auto;
+}
+
+.ac-tmg-field-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--text-3);
+  flex: 0 0 auto;
+}
+
+.ac-tmg-tagblock {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.ac-tmg-tags {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  min-width: 0;
+}
+
+/* ---------- 角色配比 ---------- */
+.ac-tmg-legend {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border-soft);
+}
+
+.ac-tmg-legend .ac-legend-item {
+  font-size: 11.5px;
+}
+
+.ac-tmg-ratio-body {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.ac-tmg-ratio-row {
+  display: grid;
+  grid-template-columns: minmax(0, 84px) minmax(0, 1fr) minmax(0, 132px);
+  align-items: center;
+  gap: 10px;
+}
+
+.ac-tmg-ratio-name {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--text-1);
+  min-width: 0;
+}
+
+.ac-tmg-ratio-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.ac-tmg-ratio-track {
+  display: block;
+  height: 8px;
+  border-radius: var(--radius-pill);
+  background: #eceff4;
+  overflow: hidden;
+}
+
+.ac-tmg-ratio-ideal {
+  display: block;
+  height: 100%;
+  border-radius: var(--radius-pill);
+  background: repeating-linear-gradient(
+    45deg,
+    #c3c9d4,
+    #c3c9d4 3px,
+    #dfe3ea 3px,
+    #dfe3ea 6px
+  );
+}
+
+.ac-tmg-ratio-real {
+  display: block;
+  height: 100%;
+  border-radius: var(--radius-pill);
+  background: var(--brand);
+}
+
+.ac-tmg-ratio-real--off {
+  background: var(--danger);
+}
+
+.ac-tmg-ratio-delta {
+  font-size: 10.5px;
+  font-family: var(--font-mono);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.ac-tmg-ratio-delta b {
+  font-weight: 700;
+}
+
+.ac-tmg-ratio-hint {
+  margin-top: 4px;
+}
+
+/* ---------- 团队详情表 ---------- */
+.ac-tmg-sortable {
+  cursor: pointer;
+  user-select: none;
+}
+
+.ac-tmg-sortable:hover {
+  color: var(--brand);
+}
+
+.ac-tmg-row {
+  cursor: pointer;
+}
+
+.ac-tmg-cell-name {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-1);
+  white-space: nowrap;
+}
+
+.ac-tmg-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  flex: 0 0 auto;
+}
+
+.ac-tmg-cell-stack {
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ac-tmg-cell-note {
+  max-width: 380px;
+  line-height: 1.55;
+  white-space: normal;
+  font-size: 11.5px;
+  color: var(--text-2);
+}
+
+.ac-tmg-solo {
+  display: inline-block;
+  margin-left: 5px;
+  padding: 0 4px;
+  border-radius: var(--radius-xs);
+  background: var(--danger-soft);
+  color: #991b1b;
+  font-size: 9.5px;
+  font-weight: 700;
+}
+
+.ac-tmg-saydo {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.ac-tmg-saydo .ac-progress {
+  width: 62px;
+  flex: 0 0 auto;
+}
+
+.ac-tmg-delta {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 11.5px;
+  font-weight: 700;
+  font-family: var(--font-mono);
+}
+
+/* ============================================================
+   2. 团队效能
+   ============================================================ */
+.ac-tmg-metric-row {
+  margin-bottom: 0;
+}
+
+.ac-tmg-key {
+  display: inline-block;
+  width: 12px;
+  height: 8px;
+  border-radius: 2px;
+  background: var(--brand);
+}
+
+.ac-tmg-key--ghost {
+  background: #d7dce5;
+}
+
+.ac-tmg-key--real {
+  background: var(--brand);
+}
+
+.ac-tmg-key--line {
+  background: var(--ai);
+  height: 3px;
+  border-radius: var(--radius-pill);
+}
+
+.ac-tmg-key--prev {
+  background: var(--text-3);
+  height: 3px;
+  border-radius: var(--radius-pill);
+}
+
+/* 迷你走势网格 */
+.ac-tmg-spark-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(128px, 1fr));
+  gap: 8px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-soft);
+}
+
+.ac-tmg-spark {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  padding: 7px 9px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.15s ease, background 0.15s ease;
+  min-width: 0;
+}
+
+.ac-tmg-spark:hover {
+  border-color: #c9cfda;
+  background: var(--bg-hover);
+}
+
+.ac-tmg-spark--active {
+  border-color: var(--brand);
+  background: var(--brand-soft);
+}
+
+.ac-tmg-spark-label {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--text-2);
+  white-space: nowrap;
+}
+
+.ac-tmg-spark-value {
+  font-size: 11.5px;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  white-space: nowrap;
+}
+
+.ac-tmg-spark-value i {
+  font-style: normal;
+  font-weight: 600;
+  opacity: 0.75;
+}
+
+/* 雷达图口径说明 */
+.ac-tmg-radar-note {
+  margin-top: 10px;
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.ac-tmg-radar-ring {
+  stroke: var(--border);
+  stroke-width: 1;
+}
+
+.ac-tmg-radar-spoke {
+  stroke: var(--border-soft);
+  stroke-width: 1;
+}
+
+.ac-tmg-radar-label {
+  font-size: 10.5px;
+  font-weight: 700;
+  fill: var(--text-2);
+}
+
+.ac-tmg-radar-value {
+  font-size: 9.5px;
+  fill: var(--brand-deep);
+  font-family: var(--font-mono);
+  font-weight: 700;
+}
+
+.ac-tmg-radar-cur {
+  stroke: var(--brand);
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+
+.ac-tmg-radar-prev {
+  stroke: var(--text-3);
+  stroke-width: 1.6;
+  stroke-dasharray: 4 3;
+  stroke-linejoin: round;
+}
+
+/* AI 团队诊断 */
+.ac-tmg-diag-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 12px;
+}
+
+.ac-tmg-diag {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 13px 15px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--ai);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-xs);
+  min-width: 0;
+}
+
+.ac-tmg-diag-head {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.ac-tmg-diag-team {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-1);
+}
+
+.ac-tmg-diag-title {
+  font-size: 12.5px;
+  font-weight: 700;
+  line-height: 1.55;
+}
+
+.ac-tmg-diag-block {
+  display: flex;
+  gap: 8px;
+  font-size: 11.5px;
+  line-height: 1.7;
+  color: var(--text-2);
+}
+
+.ac-tmg-diag-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  flex: 0 0 auto;
+  height: 18px;
+  padding: 0 6px;
+  border-radius: var(--radius-xs);
+  background: var(--bg-hover);
+  color: var(--text-2);
+  font-size: 10px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* ============================================================
+   3. 协作与依赖
+   ============================================================ */
+.ac-tmg-graph-name {
+  font-size: 11px;
+  font-weight: 700;
+  fill: #fff;
+}
+
+.ac-tmg-graph-sub {
+  font-size: 9px;
+  fill: rgba(255, 255, 255, 0.85);
+  font-family: var(--font-mono);
+}
+
+.ac-tmg-graph-edge {
+  font-size: 9.5px;
+  font-weight: 700;
+  fill: var(--text-2);
+  font-family: var(--font-mono);
+}
+
+.ac-tmg-graph-badge {
+  font-size: 9.5px;
+  font-weight: 800;
+  fill: #fff;
+}
+
+/* 阻塞治理看板 */
+.ac-tmg-block-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ac-tmg-block {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding: 11px 13px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-soft);
+  border-left: 3px solid var(--danger);
+  border-radius: var(--radius-sm);
+}
+
+.ac-tmg-block-head {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.ac-tmg-block-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--text-1);
+}
+
+.ac-tmg-block-sla {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ac-tmg-sla-label {
+  flex: 0 0 auto;
+  font-size: 10.5px;
+  color: var(--text-2);
+  font-family: var(--font-mono);
+  white-space: nowrap;
+}
+
+.ac-tmg-block-sla .ac-progress {
+  flex: 1 1 auto;
+  min-width: 40px;
+}
+
+.ac-tmg-block-note {
+  font-size: 11.5px;
+  line-height: 1.65;
+  color: var(--text-2);
+}
+
+.ac-tmg-block-fb {
+  font-size: 11px;
+  padding: 7px 9px;
+}
+
+/* AI 协作优化建议 */
+.ac-tmg-advice-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+  gap: 12px;
+}
+
+.ac-tmg-advice {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  padding: 12px 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-xs);
+  min-width: 0;
+}
+
+.ac-tmg-advice--rejected {
+  opacity: 0.62;
+  background: var(--bg-subtle);
+}
+
+.ac-tmg-advice-head {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.ac-tmg-advice-body {
+  font-size: 11.5px;
+  line-height: 1.7;
+}
+
+.ac-tmg-advice-foot {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-top: 9px;
+  border-top: 1px solid var(--border-soft);
+}
+
+/* ============================================================
+   4. 研发仪式
+   ============================================================ */
+.ac-tmg-cer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 12px;
+}
+
+.ac-tmg-cer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 13px 15px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-xs);
+  min-width: 0;
+}
+
+.ac-tmg-cer-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.ac-tmg-cer-name {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--text-1);
+  line-height: 1.35;
+}
+
+.ac-tmg-cer-meta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px 10px;
+  padding: 8px 10px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+}
+
+.ac-tmg-cer-meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: var(--text-2);
+  font-variant-numeric: tabular-nums;
+}
+
+.ac-tmg-cer-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.ac-tmg-cer-ai {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px 10px;
+  background: var(--ai-soft);
+  border: 1px solid #ddd0f7;
+  border-left: 3px solid var(--ai);
+  border-radius: var(--radius-sm);
+}
+
+.ac-tmg-cer-ai-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--ai-deep);
+}
+
+.ac-tmg-cer-ai-text {
+  font-size: 11.5px;
+  line-height: 1.65;
+  color: #4c1d95;
+}
+
+.ac-tmg-cer-foot {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-top: 9px;
+  border-top: 1px solid var(--border-soft);
+  margin-top: auto;
+}
+
+.ac-tmg-cer-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.ac-tmg-cer-bar {
+  display: block;
+  height: 6px;
+  border-radius: var(--radius-pill);
+  background: #eceff4;
+  overflow: hidden;
+}
+
+.ac-tmg-cer-bar i {
+  display: block;
+  height: 100%;
+  border-radius: var(--radius-pill);
+}
+
+.ac-tmg-cer-bar-fill--info {
+  background: var(--info);
+}
+
+.ac-tmg-cer-bar-fill--ok {
+  background: var(--ok);
+}
+
+.ac-tmg-cer-bar-fill--warn {
+  background: var(--warn);
+}
+
+.ac-tmg-cer-bar-fill--danger {
+  background: var(--danger);
+}
+
+/* 四象限矩阵 */
+.ac-tmg-quad-label {
+  font-size: 10.5px;
+  font-weight: 800;
+}
+
+.ac-tmg-quad-hint {
+  font-size: 9.5px;
+  fill: var(--text-3);
+}
+
+.ac-tmg-matrix-idx {
+  font-size: 11px;
+  font-weight: 800;
+  fill: #fff;
+}
+
+.ac-tmg-matrix-name {
+  font-size: 10.5px;
+  font-weight: 700;
+  fill: var(--text-1);
+}
+
+/* AI 提效方案 */
+.ac-tmg-upgrade-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ac-tmg-upgrade {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px 12px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+}
+
+.ac-tmg-upgrade--pending {
+  background: var(--ai-soft);
+  border-color: #ddd0f7;
+  border-left: 3px solid var(--ai);
+}
+
+.ac-tmg-upgrade-head {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.ac-tmg-upgrade-name {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--text-1);
+}
+
+.ac-tmg-upgrade-plan {
+  font-size: 11.5px;
+  line-height: 1.7;
+  color: var(--text-2);
+}
+
+.ac-tmg-upgrade-gain {
+  display: flex;
+  gap: 5px;
+  font-size: 11px;
+  line-height: 1.65;
+  color: var(--ai-deep);
+}
+
+.ac-tmg-upgrade-gain svg {
+  flex: 0 0 auto;
+  margin-top: 2px;
+}
+
+/* 议程 / 纪要演示 */
+.ac-tmg-demo-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.ac-tmg-demo-grid .ac-code-body {
+  max-height: 420px;
+  overflow: auto;
+  font-size: 11px;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* ============================================================
+   抽屉内表格与协作清单
+   ============================================================ */
+.ac-tmg-kv {
+  grid-template-columns: 84px minmax(0, 1fr);
+}
+
+.ac-tmg-task-title {
+  max-width: 260px;
+  line-height: 1.45;
+  white-space: normal;
+  font-size: 12px;
+}
+
+.ac-tmg-drawer-collab {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ac-tmg-drawer-collab-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 7px 10px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  font-size: 11.5px;
+}
+
+/* ============================================================
+   窄屏降级（桌面 1440×900 不产生横向滚动，表格滚动限制在 ac-table-wrap 内）
+   ============================================================ */
+@media (max-width: 1180px) {
+  .ac-tmg-demo-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ac-tmg-cell-note {
+    max-width: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .ac-tmg-team-grid,
+  .ac-tmg-diag-grid,
+  .ac-tmg-advice-grid,
+  .ac-tmg-cer-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ac-tmg-ratio-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 4px;
+  }
+
+  .ac-tmg-ratio-delta {
+    text-align: left;
+  }
+
+  .ac-tmg-cer-meta {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

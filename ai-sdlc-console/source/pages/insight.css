@@ -1,0 +1,193 @@
+/**
+ * 效能报表（insight）页面专属补充样式
+ * 仅使用 style.css 中已定义的设计 token，类名统一以 ac-in- 前缀，避免污染全局类库。
+ */
+
+.ac-in-page {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+/* ---------- 四组指标卡 ---------- */
+.ac-in-group-grid {
+  align-items: start;
+}
+
+.ac-in-metric-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 0;
+}
+
+.ac-in-metric-grid .ac-metric {
+  padding: 10px 12px;
+}
+
+.ac-in-metric-grid .ac-metric-spark {
+  width: 100%;
+  max-width: 96px;
+  height: auto;
+}
+
+/* ---------- 趋势图 / 环形图 ---------- */
+.ac-in-chart-grid {
+  align-items: start;
+}
+
+.ac-in-chart {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: 4px;
+  overflow: visible;
+}
+
+.ac-in-chart-tick {
+  font-size: 10.5px;
+  fill: var(--text-3);
+  font-family: var(--font-sans);
+}
+
+.ac-in-chart-unit {
+  font-size: 11px;
+  font-weight: 600;
+  fill: var(--text-3);
+  font-family: var(--font-sans);
+}
+
+/* 趋势卡内的指标药丸切换 */
+.ac-in-metric-pills {
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.ac-in-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 168px;
+  height: 30px;
+  padding: 0 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xs);
+  background: #fff;
+  color: var(--text-2);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.ac-in-pill:hover {
+  border-color: var(--brand);
+  color: var(--brand-deep);
+}
+
+.ac-in-pill .ac-mono {
+  color: var(--text-1);
+  font-size: 11.5px;
+}
+
+.ac-in-pill--active {
+  border-color: var(--brand);
+  background: var(--brand-soft);
+  color: var(--brand-deep);
+  box-shadow: var(--shadow-xs);
+}
+
+.ac-in-pill--active .ac-mono {
+  color: var(--brand-deep);
+}
+
+/* 环形图与图例并排 */
+.ac-in-donut-row {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.ac-in-donut-row .ac-donut {
+  flex: 0 0 auto;
+}
+
+.ac-in-donut-row .ac-legend {
+  flex: 1 1 200px;
+  min-width: 0;
+}
+
+/* AI 增效中量纲不同的指标（响应时延 ms / Token 成本 元）并列小卡 */
+.ac-in-ai-extra {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.ac-in-ai-extra-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1 1 168px;
+  min-width: 0;
+  padding: 8px 10px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+}
+
+.ac-in-ai-extra-value {
+  margin-left: auto;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--text-1);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* ---------- 榜单名次徽标 ---------- */
+.ac-in-rank {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: var(--radius-sm);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.ac-in-rank-arrow {
+  margin-left: 4px;
+  vertical-align: middle;
+}
+
+/* ---------- 窄屏降级 ---------- */
+@media (max-width: 1180px) {
+  .ac-in-metric-grid {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .ac-in-metric-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ac-in-pill {
+    flex: 1 1 100%;
+    min-width: 0;
+  }
+
+  .ac-in-donut-row {
+    justify-content: center;
+  }
+
+  .ac-in-donut-row .ac-legend {
+    flex: 1 1 100%;
+  }
+}

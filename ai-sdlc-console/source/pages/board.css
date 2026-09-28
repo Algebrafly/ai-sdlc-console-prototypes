@@ -1,0 +1,374 @@
+/**
+ * 任务看板专属样式（pageId: board）
+ * 类名前缀统一为 ac-bd-，通用类（ac-board / ac-tag / ac-card 等）复用 style.css
+ */
+
+.ac-bd {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+}
+
+/* ---------- 顶部筛选条 ---------- */
+.ac-bd-filters {
+  gap: 10px;
+}
+
+.ac-bd-search {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.ac-bd-search svg {
+  position: absolute;
+  left: 9px;
+  color: var(--text-3);
+  pointer-events: none;
+}
+
+.ac-bd-search .ac-input {
+  padding-left: 28px;
+  width: 210px;
+}
+
+.ac-bd-scope {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ac-bd-scope-stat {
+  font-size: 11.5px;
+  color: var(--text-3);
+  font-family: var(--font-mono);
+  white-space: nowrap;
+}
+
+/* ---------- 看板列补充 ---------- */
+.ac-bd-col-bar {
+  flex: 0 0 auto;
+  align-self: stretch;
+  width: 3px;
+  border-radius: 2px;
+  margin: -10px 5px -10px -9px;
+}
+
+.ac-bd-col-head-extra {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 2px;
+  min-width: 0;
+}
+
+.ac-bd-col-sla {
+  font-size: 10.5px;
+  color: var(--text-3);
+  font-family: var(--font-mono);
+  white-space: nowrap;
+}
+
+/* ---------- 卡片补充信息 ---------- */
+.ac-bd-card--dim {
+  opacity: 0.42;
+  filter: saturate(0.7);
+}
+
+.ac-bd-card--mine {
+  border-color: var(--brand);
+}
+
+.ac-bd-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  font-size: 11px;
+  color: var(--text-3);
+}
+
+.ac-bd-card-meta .ac-mono {
+  font-size: 10.5px;
+}
+
+.ac-bd-branch {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  max-width: 100%;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  color: var(--text-2);
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-xs);
+  padding: 1px 6px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ac-bd-ai-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10.5px;
+  color: var(--text-3);
+}
+
+.ac-bd-ai-track {
+  flex: 1 1 auto;
+  height: 4px;
+  min-width: 40px;
+  border-radius: var(--radius-pill);
+  background: #eceff4;
+  overflow: hidden;
+}
+
+.ac-bd-ai-fill {
+  display: block;
+  height: 100%;
+  border-radius: var(--radius-pill);
+  background: var(--ai);
+}
+
+.ac-bd-ai-fill--human {
+  background: var(--info);
+}
+
+/* ---------- 抽屉：验收标准 ---------- */
+.ac-bd-criteria {
+  margin: 0;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 12.5px;
+  color: var(--text-2);
+  line-height: 1.6;
+}
+
+/* ---------- 抽屉：状态切换 ---------- */
+.ac-bd-state-switch {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.ac-bd-state-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 26px;
+  padding: 0 10px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  color: var(--text-2);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+
+.ac-bd-state-btn:hover {
+  border-color: var(--brand);
+  color: var(--brand-deep);
+}
+
+.ac-bd-state-btn--active {
+  background: var(--brand-soft);
+  border-color: var(--brand);
+  color: var(--brand-ink);
+}
+
+.ac-bd-state-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex: 0 0 auto;
+}
+
+/* ---------- 抽屉：Diff 摘要 ---------- */
+.ac-bd-diff {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-subtle);
+}
+
+.ac-bd-diff-stat {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 5px;
+  font-size: 12px;
+  color: var(--text-2);
+}
+
+.ac-bd-diff-stat strong {
+  font-family: var(--font-mono);
+  font-size: 14px;
+}
+
+.ac-bd-diff-add {
+  color: var(--ok);
+}
+
+.ac-bd-diff-del {
+  color: var(--danger);
+}
+
+.ac-bd-diff-ratio {
+  margin-left: auto;
+  min-width: 130px;
+}
+
+/* ---------- 抽屉：本地测试 / 门禁 ---------- */
+.ac-bd-test-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ac-bd-test-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  background: var(--bg-card);
+  font-size: 12px;
+}
+
+.ac-bd-test-name {
+  font-weight: 600;
+  color: var(--text-1);
+  white-space: nowrap;
+}
+
+.ac-bd-test-log {
+  color: var(--text-2);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+.ac-bd-test-dur {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-3);
+  white-space: nowrap;
+}
+
+/* ---------- 抽屉：Agent 参与记录 ---------- */
+.ac-bd-session {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ac-bd-session-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.ac-bd-session-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 16px;
+}
+
+.ac-bd-session-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.ac-bd-session-cell span:first-child {
+  font-size: 11px;
+  color: var(--text-3);
+}
+
+.ac-bd-session-cell span:last-child {
+  font-size: 12.5px;
+  color: var(--text-1);
+  font-weight: 600;
+}
+
+.ac-bd-session-summary {
+  padding: 9px 11px;
+  border-radius: var(--radius-sm);
+  background: var(--ai-soft);
+  border: 1px solid #ddd0f7;
+  color: var(--ai-deep);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+/* ---------- 抽屉：提交信息 ---------- */
+.ac-bd-commit {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  padding: 9px 11px;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  background: var(--bg-card);
+}
+
+.ac-bd-commit-body {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.ac-bd-commit-sha {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--brand-deep);
+  font-weight: 700;
+}
+
+.ac-bd-commit-msg {
+  font-size: 12.5px;
+  color: var(--text-1);
+  line-height: 1.5;
+}
+
+.ac-bd-commit-sub {
+  font-size: 11px;
+  color: var(--text-3);
+  font-family: var(--font-mono);
+}
+
+/* ---------- 抽屉：事件追踪标识 ---------- */
+.ac-bd-trace {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  color: var(--text-3);
+}
+
+@media (max-width: 1180px) {
+  .ac-bd-session-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ac-bd-search .ac-input {
+    width: 160px;
+  }
+}

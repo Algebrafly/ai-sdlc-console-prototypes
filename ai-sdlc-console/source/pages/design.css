@@ -1,0 +1,1505 @@
+/**
+ * 架构设计与任务拆解（design）页面专属补充样式
+ * 类名统一以 ac-dg- 前缀，仅使用 style.css 已定义的设计 token，避免污染全局类库。
+ * 覆盖：需求选择器、五标签面板、AI 拆解与预估常驻总览、分层架构视图 + SVG 组件关系图、
+ *       接口契约表、任务树形表格（行内编辑 / AI 再拆解）、AI 工时预估总表与预估详情抽屉、
+ *       AI 拆解建议（DAG / 明细 / 对比 / 质量校验）、PingCode 批量同步弹窗、回放流程弹窗、Toast。
+ * 注：与 style.css 同名的类（ac-card-body / ac-metric / ac-filter-bar 等）一律用 .ac-dg 前缀提升特异性覆盖。
+ */
+
+/* ---------- 页根 ---------- */
+.ac-dg {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+}
+
+.ac-dg .ac-card {
+  margin-bottom: 0;
+}
+
+/* ---------- 顶部需求选择器 ---------- */
+.ac-dg-picker {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.ac-dg-picker-label {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-2);
+  flex: 0 0 auto;
+}
+
+.ac-dg-picker .ac-select {
+  max-width: 520px;
+}
+
+.ac-dg-picker-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-left: auto;
+  font-size: 12px;
+  color: var(--text-3);
+}
+
+/* ---------- 标签面板 ---------- */
+.ac-dg-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+}
+
+/* ============================================================
+   ① 架构文档
+   ============================================================ */
+.ac-dg-arch {
+  display: grid;
+  grid-template-columns: minmax(0, 336px) minmax(0, 1fr);
+  gap: 14px;
+  align-items: start;
+  min-width: 0;
+}
+
+@media (max-width: 1280px) {
+  .ac-dg-arch {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.ac-dg-arch-left {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+}
+
+.ac-dg-arch-right {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+}
+
+/* 层级卡片内的组件清单 */
+.ac-dg-layer-comps {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 8px 10px 10px;
+}
+
+.ac-dg-comp {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-xs);
+  background: var(--bg-card);
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  transition: border-color 0.14s ease, background 0.14s ease, box-shadow 0.14s ease;
+}
+
+.ac-dg-comp:hover {
+  border-color: var(--brand);
+  background: var(--brand-soft);
+}
+
+.ac-dg-comp--active {
+  border-color: var(--brand);
+  background: var(--brand-soft);
+  box-shadow: 0 0 0 2px var(--brand-soft);
+}
+
+.ac-dg-comp-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-1);
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ac-dg-comp-meta {
+  margin-left: auto;
+  flex: 0 0 auto;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  color: var(--text-3);
+}
+
+/* SVG 组件关系图 */
+.ac-dg-diagram {
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  background-color: var(--bg-subtle);
+  background-image: radial-gradient(#dfe3ea 1px, transparent 1px);
+  background-size: 16px 16px;
+  overflow-x: auto;
+  padding: 6px;
+}
+
+.ac-dg-diagram svg {
+  display: block;
+}
+
+.ac-dg-svg-node {
+  cursor: pointer;
+}
+
+.ac-dg-svg-node rect {
+  transition: stroke 0.15s ease, fill 0.15s ease;
+}
+
+.ac-dg-svg-node:hover rect {
+  stroke: var(--brand);
+  fill: var(--brand-soft);
+}
+
+.ac-dg-svg-node--active rect {
+  stroke: var(--brand);
+  fill: var(--brand-soft);
+}
+
+.ac-dg-svg-name {
+  font-family: var(--font-sans);
+  font-size: 11.5px;
+  font-weight: 700;
+  fill: var(--text-1);
+}
+
+.ac-dg-svg-tech {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  fill: var(--text-3);
+}
+
+.ac-dg-svg-layer {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 700;
+  fill: var(--text-3);
+  letter-spacing: 0.4px;
+}
+
+.ac-dg-legend {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-size: 11.5px;
+  color: var(--text-2);
+}
+
+.ac-dg-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ac-dg-legend-line {
+  width: 22px;
+  border-top: 2px solid var(--brand);
+}
+
+.ac-dg-legend-line--async {
+  border-top-color: var(--ai);
+  border-top-style: dashed;
+}
+
+.ac-dg-legend-line--data {
+  border-top-color: var(--info);
+  border-top-style: dotted;
+}
+
+/* 选中组件详情 */
+.ac-dg-comp-detail-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.ac-dg-risk {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text-2);
+  line-height: 1.6;
+}
+
+.ac-dg-risk + .ac-dg-risk {
+  margin-top: 6px;
+}
+
+/* ============================================================
+   ② 接口定义
+   ============================================================ */
+.ac-dg-method {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 52px;
+  padding: 2px 7px;
+  border-radius: var(--radius-xs);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  border: 1px solid transparent;
+}
+
+.ac-dg-method--GET {
+  background: var(--info-soft);
+  color: #1d4ed8;
+  border-color: #cfe0fb;
+}
+
+.ac-dg-method--POST {
+  background: var(--ok-soft);
+  color: #047857;
+  border-color: #c3ecdc;
+}
+
+.ac-dg-method--PUT {
+  background: var(--warn-soft);
+  color: #b45309;
+  border-color: #f7e0b4;
+}
+
+.ac-dg-method--DELETE {
+  background: var(--danger-soft);
+  color: #b91c1c;
+  border-color: #f6cdcd;
+}
+
+.ac-dg-method--EVENT {
+  background: var(--ai-soft);
+  color: var(--ai-deep);
+  border-color: #e2d5fb;
+}
+
+.ac-dg-path {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-1);
+  word-break: break-all;
+}
+
+/* 契约详情抽屉 */
+.ac-dg-code {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  padding: 1px 6px;
+  border-radius: var(--radius-xs);
+  background: var(--bg-hover);
+  color: var(--text-1);
+  word-break: break-all;
+}
+
+.ac-dg-changelog {
+  font-size: 12.5px;
+  color: var(--text-2);
+  line-height: 1.7;
+  white-space: pre-line;
+}
+
+/* ============================================================
+   ③ 任务清单（树形表格）
+   ============================================================ */
+.ac-dg-tree .ac-dg-group-row > td {
+  background: var(--bg-subtle);
+  font-weight: 700;
+}
+
+.ac-dg-tree .ac-dg-task-row > td:first-child {
+  padding-left: 30px;
+}
+
+.ac-dg-tree .ac-dg-sub-row > td:first-child {
+  padding-left: 56px;
+}
+
+.ac-dg-tree .ac-dg-sub-row > td {
+  background: var(--ai-soft);
+}
+
+.ac-dg-tree tr.ac-dg-row--editing > td {
+  background: var(--brand-soft) !important;
+}
+
+.ac-dg-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ac-dg-inline .ac-input,
+.ac-dg-inline .ac-select {
+  height: 26px;
+  font-size: 12px;
+  padding: 0 6px;
+}
+
+.ac-dg-input-num {
+  width: 76px;
+}
+
+.ac-dg-input-title {
+  width: 100%;
+  min-width: 180px;
+}
+
+.ac-dg-sub-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ai-deep);
+}
+
+.ac-dg-tree-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.ac-dg-tree-title-text {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ============================================================
+   ④ 工时估算
+   ============================================================ */
+.ac-dg-est {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 320px);
+  gap: 14px;
+  align-items: start;
+  min-width: 0;
+}
+
+@media (max-width: 1280px) {
+  .ac-dg-est {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.ac-dg-est-side {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+  position: sticky;
+  top: 0;
+}
+
+.ac-dg-parallel {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.ac-dg-parallel-num {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--brand-deep);
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+
+.ac-dg-bar-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ac-dg-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ac-dg-bar-label {
+  flex: 0 0 96px;
+  font-size: 11.5px;
+  color: var(--text-2);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ac-dg-bar-track {
+  flex: 1 1 auto;
+  height: 14px;
+  border-radius: var(--radius-xs);
+  background: #eef1f6;
+  overflow: hidden;
+}
+
+.ac-dg-bar-fill {
+  height: 100%;
+  border-radius: var(--radius-xs);
+  background: linear-gradient(90deg, var(--brand), var(--ai));
+}
+
+.ac-dg-bar-val {
+  flex: 0 0 62px;
+  text-align: right;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--text-2);
+}
+
+.ac-dg-check {
+  width: 15px;
+  height: 15px;
+  margin: 0;
+  flex: 0 0 auto;
+  accent-color: var(--brand);
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+/* ============================================================
+   PingCode 批量同步弹窗
+   ============================================================ */
+.ac-dg-sync-list {
+  /* 平台标识 / 箭头 / 外部编号 / 操作 / 标题 / 工作项类型 / 同步结果 —— 表头与数据行共用同一网格模板 */
+  --ac-dg-sync-cols: 80px 16px 100px 54px minmax(120px, 1.5fr) 96px minmax(150px, 1fr);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 320px;
+  overflow-y: auto;
+  overflow-x: auto;
+}
+
+/* 批量同步弹窗需容纳「平台标识 → 外部编号」映射两列，放宽 style.css 中 .ac-modal 的 560px 上限 */
+.ac-dg .ac-modal {
+  max-width: 860px;
+}
+
+.ac-dg-sync-head {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: var(--ac-dg-sync-cols);
+  align-items: center;
+  gap: 8px;
+  padding: 6px 9px;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-xs);
+  background: var(--bg-subtle);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  color: var(--text-3);
+  white-space: nowrap;
+}
+
+.ac-dg-sync-row {
+  display: grid;
+  grid-template-columns: var(--ac-dg-sync-cols);
+  align-items: center;
+  gap: 8px;
+  padding: 7px 9px;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-xs);
+  font-size: 12px;
+  background: var(--bg-card);
+}
+
+.ac-dg-sync-row--syncing {
+  border-color: #d8dcfb;
+  background: var(--brand-soft);
+}
+
+.ac-dg-sync-row--retrying {
+  border-color: #f7e0b4;
+  background: var(--warn-soft);
+}
+
+.ac-dg-sync-row--ok {
+  border-color: #c3ecdc;
+  background: var(--ok-soft);
+}
+
+.ac-dg-sync-row--failed {
+  border-color: #f6cdcd;
+  background: var(--danger-soft);
+}
+
+/* 平台标识（TASK-24xx）—— 映射关系左侧 */
+.ac-dg-sync-platform {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-1);
+}
+
+/* 平台标识 → 外部编号 的映射箭头 */
+.ac-dg-sync-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-3);
+}
+
+/* 外部编号（PC-ORD-24xx，未建立映射时为「待生成」）—— 映射关系右侧 */
+.ac-dg-sync-code {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-3);
+}
+
+.ac-dg-sync-title {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--text-1);
+}
+
+.ac-dg-sync-status {
+  min-width: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--text-2);
+}
+
+.ac-dg-sync-status svg {
+  flex: 0 0 auto;
+}
+
+.ac-dg-sync-summary {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  font-size: 12.5px;
+  color: var(--text-2);
+}
+
+/* ============================================================
+   Toast
+   ============================================================ */
+.ac-dg-toast-wrap {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ac-dg-toast {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  min-width: 240px;
+  max-width: 380px;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--brand);
+  box-shadow: var(--shadow-lg);
+  font-size: 12.5px;
+  color: var(--text-1);
+  animation: ac-dg-toast-in 0.18s ease;
+}
+
+.ac-dg-toast svg {
+  flex: 0 0 auto;
+  margin-top: 2px;
+}
+
+.ac-dg-toast--ok {
+  border-left-color: var(--ok);
+}
+
+.ac-dg-toast--warn {
+  border-left-color: var(--warn);
+}
+
+.ac-dg-toast--danger {
+  border-left-color: var(--danger);
+}
+
+.ac-dg-toast--ai {
+  border-left-color: var(--ai);
+}
+
+@keyframes ac-dg-toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------- 底部工具条 ---------- */
+.ac-dg-toolbar {
+  position: sticky;
+  bottom: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 10px 16px;
+  border-radius: var(--radius-md);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-lg);
+}
+
+.ac-dg-toolbar-meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  min-width: 0;
+  font-size: 12.5px;
+  color: var(--text-2);
+}
+
+.ac-dg-toolbar-meta strong {
+  color: var(--text-1);
+  font-weight: 700;
+}
+
+.ac-dg-toolbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+@media (max-width: 1180px) {
+  .ac-dg-toolbar-actions {
+    margin-left: 0;
+  }
+}
+
+/* ============================================================
+   ⑤ AI 拆解与预估 —— 常驻总览（顶部指标 + 收敛趋势 + 建议清单）
+   ============================================================ */
+.ac-dg-metrics {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 10px;
+  min-width: 0;
+}
+
+@media (max-width: 1360px) {
+  .ac-dg-metrics {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.ac-dg-metrics .ac-metric {
+  padding: 12px 14px;
+  gap: 4px;
+}
+
+.ac-dg-metrics .ac-metric-value {
+  font-size: 22px;
+}
+
+.ac-dg-metrics .ac-metric-label {
+  font-size: 12px;
+}
+
+.ac-dg-ai-band {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 460px);
+  gap: 14px;
+  align-items: start;
+  min-width: 0;
+}
+
+@media (max-width: 1360px) {
+  .ac-dg-ai-band {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* 手绘 SVG 图表容器：横向滚动只允许出现在这里与 .ac-table-wrap */
+.ac-dg-chart {
+  min-width: 0;
+  padding: 6px;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  background: var(--bg-subtle);
+  overflow-x: auto;
+}
+
+.ac-dg-chart svg {
+  display: block;
+}
+
+/* SVG 文本样式（<text> 无 width 属性，统一用 x / y / textAnchor 定位） */
+.ac-dg-svg-axis {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  fill: var(--text-3);
+}
+
+.ac-dg-svg-val {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 700;
+  fill: var(--text-1);
+}
+
+.ac-dg-svg-cat {
+  font-family: var(--font-sans);
+  font-size: 10.5px;
+  font-weight: 600;
+  fill: var(--text-2);
+}
+
+.ac-dg-svg-sub {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  fill: var(--text-3);
+}
+
+.ac-dg-svg-note {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  fill: var(--text-3);
+}
+
+.ac-dg-svg-seg {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 700;
+  fill: #fff;
+}
+
+.ac-dg-svg-order {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 700;
+  fill: var(--brand-deep);
+}
+
+.ac-dg-svg-cp {
+  font-family: var(--font-sans);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  fill: var(--brand);
+}
+
+.ac-dg-svg-avatar {
+  font-family: var(--font-sans);
+  font-size: 9px;
+  font-weight: 700;
+  fill: #fff;
+}
+
+/* 图例圆点与色块 */
+.ac-dg-legend-dot {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  flex: 0 0 auto;
+}
+
+.ac-dg-legend-swatch {
+  display: inline-block;
+  width: 16px;
+  height: 11px;
+  border: 1.2px solid #dfe3ea;
+  border-radius: 3px;
+  background: #fff;
+  flex: 0 0 auto;
+}
+
+.ac-dg-legend-swatch--cp {
+  border: 2.2px solid var(--brand);
+  background: var(--brand-soft);
+}
+
+/* 链接式按钮（相似任务 id 跳转） */
+.ac-dg-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: var(--brand);
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.ac-dg-link:hover {
+  color: var(--brand-deep);
+}
+
+/* 标签样式的可点击按钮（来源 id） */
+button.ac-dg-taglink {
+  cursor: pointer;
+  font-family: inherit;
+}
+
+button.ac-dg-taglink:hover {
+  border-color: var(--brand);
+  color: var(--brand-deep);
+  background: var(--brand-soft);
+}
+
+/* 带图标的关键字搜索框 */
+.ac-dg-search {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.ac-dg-search > svg {
+  position: absolute;
+  left: 8px;
+  color: var(--text-3);
+  pointer-events: none;
+}
+
+.ac-dg-search .ac-input {
+  width: 188px;
+  padding-left: 28px;
+}
+
+/* 面板内的过滤条不再叠加 style.css 的下边距（间距交给 .ac-dg-panel 的 gap） */
+.ac-dg .ac-filter-bar {
+  margin-bottom: 0;
+}
+
+/* 页头同理：间距由 .ac-dg 的 gap 统一控制 */
+.ac-dg .ac-page-head {
+  margin-bottom: 0;
+}
+
+.ac-dg .ac-filter-bar .ac-select {
+  max-width: 186px;
+}
+
+/* ============================================================
+   ⑥ AI 工时预估总表与详情抽屉
+   ============================================================ */
+.ac-dg-est-table {
+  min-width: 1680px;
+}
+
+/* 人工三点估算：乐观 / 最可能 / 悲观 / PERT 四值并列 */
+.ac-dg-tri {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--text-3);
+}
+
+.ac-dg-tri > * + *::before {
+  content: '/';
+  margin-right: 4px;
+  color: #d7dce4;
+}
+
+.ac-dg-tri strong {
+  color: var(--text-1);
+  font-size: 12.5px;
+  font-weight: 700;
+}
+
+/* 偏差色标：|偏差| > 20% 标黄 */
+.ac-dg-var {
+  display: inline-block;
+  min-width: 56px;
+  padding: 1px 6px;
+  border-radius: var(--radius-xs);
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 700;
+  text-align: right;
+}
+
+.ac-dg-var--up {
+  color: #b45309;
+}
+
+.ac-dg-var--down {
+  color: #1d4ed8;
+}
+
+.ac-dg-var--high {
+  background: var(--warn-soft);
+  color: #92400e;
+  box-shadow: inset 0 0 0 1px #f2dcae;
+}
+
+/* 置信度 + 置信区间条（误差棒） */
+.ac-dg-conf {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 168px;
+}
+
+.ac-dg-conf-num {
+  flex: 0 0 34px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--text-1);
+  text-align: right;
+}
+
+.ac-dg-conf-track {
+  position: relative;
+  flex: 1 1 auto;
+  min-width: 56px;
+  height: 12px;
+  border-radius: var(--radius-pill);
+  background: #eef1f6;
+}
+
+.ac-dg-conf-band {
+  position: absolute;
+  top: 3px;
+  height: 6px;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(90deg, #c4b5fd, var(--ai));
+}
+
+.ac-dg-conf-mark {
+  position: absolute;
+  top: 1px;
+  width: 2px;
+  height: 10px;
+  border-radius: 1px;
+  background: var(--text-1);
+}
+
+.ac-dg-conf-range {
+  flex: 0 0 auto;
+  font-size: 10px;
+  color: var(--text-3);
+  white-space: nowrap;
+}
+
+/* 风险因子计数：触发采纳门禁时标红并带图标 */
+.ac-dg-risk-count {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-family: var(--font-mono);
+}
+
+.ac-dg-risk-count--high {
+  color: var(--danger);
+  font-weight: 700;
+}
+
+/* 预估总表卡脚：左侧口径小字 + 右侧合计 */
+.ac-dg .ac-dg-est-foot {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* 汇总对照四格 */
+.ac-dg-cmp-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  min-width: 0;
+}
+
+@media (max-width: 1360px) {
+  .ac-dg-cmp-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.ac-dg-cmp-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+  padding: 10px 12px;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  background: var(--bg-subtle);
+}
+
+.ac-dg-cmp-cell--ai {
+  border-color: #ddd0f7;
+  background: var(--ai-soft);
+}
+
+.ac-dg-cmp-label {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--text-3);
+}
+
+.ac-dg-cmp-value {
+  font-size: 19px;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+  color: var(--text-1);
+  font-variant-numeric: tabular-nums;
+}
+
+.ac-dg-cmp-sub {
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--text-3);
+}
+
+/* 类型分布条形图：黑线标记人工 PERT 的位置 */
+.ac-dg .ac-dg-bar-track {
+  position: relative;
+}
+
+.ac-dg-bar-mark {
+  position: absolute;
+  top: -1px;
+  bottom: -1px;
+  width: 2px;
+  background: var(--text-1);
+  opacity: 0.62;
+}
+
+/* 抽屉内的键值对：加宽左列以容纳公式核算 */
+.ac-dg .ac-dg-kv-wide {
+  grid-template-columns: 104px minmax(0, 1fr);
+}
+
+/* 手动覆写行 */
+.ac-dg-override {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* 特征贡献表的合计行 */
+.ac-dg .ac-dg-sum-row > td {
+  background: var(--bg-subtle);
+  font-weight: 700;
+}
+
+/* ============================================================
+   ⑦ AI 拆解建议清单（常驻卡片）
+   ============================================================ */
+.ac-dg-brk-overview {
+  min-width: 0;
+}
+
+.ac-dg .ac-dg-brk-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+  padding: 10px 12px;
+  max-height: 402px;
+  overflow-y: auto;
+}
+
+.ac-dg-brk-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  padding: 8px 10px;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  background: var(--bg-card);
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  transition: border-color 0.14s ease, background 0.14s ease, box-shadow 0.14s ease;
+}
+
+.ac-dg-brk-item:hover {
+  border-color: var(--brand);
+  background: var(--brand-soft);
+}
+
+.ac-dg-brk-item--active {
+  border-color: var(--brand);
+  background: var(--brand-soft);
+  box-shadow: 0 0 0 2px var(--brand-soft);
+}
+
+.ac-dg-brk-item-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  min-width: 0;
+}
+
+.ac-dg-brk-item-title {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-1);
+}
+
+.ac-dg-brk-item-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.ac-dg-brk-item-stats {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  font-size: 11px;
+  color: var(--text-3);
+}
+
+.ac-dg-brk-item-stats strong {
+  font-weight: 700;
+  color: var(--text-1);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ============================================================
+   ⑧ AI 拆解建议工作台（DAG / 明细表 / 对比 / 质量校验）
+   ============================================================ */
+.ac-dg-brk-bottom {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 14px;
+  align-items: start;
+  min-width: 0;
+}
+
+@media (max-width: 1360px) {
+  .ac-dg-brk-bottom {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.ac-dg-brk-table {
+  min-width: 1460px;
+}
+
+.ac-dg .ac-dg-brk-table td {
+  vertical-align: top;
+}
+
+/* 关键路径上的子任务行 */
+.ac-dg .ac-dg-brk-row--cp > td {
+  background: #f6f7ff;
+}
+
+.ac-dg-brk-rationale {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  max-width: 320px;
+  line-height: 1.55;
+}
+
+.ac-dg-brk-rationale-full {
+  line-height: 1.7;
+}
+
+.ac-dg-brk-decision {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ac-dg-brk-decision .ac-dg-inline {
+  font-size: 11.5px;
+  color: var(--text-2);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.ac-dg .ac-dg-brk-detail-row > td {
+  background: var(--bg-subtle);
+  padding: 10px 12px;
+}
+
+.ac-dg-brk-detail {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 16px;
+  min-width: 0;
+}
+
+@media (max-width: 1180px) {
+  .ac-dg-brk-detail {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.ac-dg-brk-ac {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ac-dg-brk-ac li {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--text-2);
+}
+
+.ac-dg-brk-ac li svg {
+  flex: 0 0 auto;
+  margin-top: 3px;
+  color: var(--ok);
+}
+
+.ac-dg .ac-dg-brk-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* 拆解质量校验清单（✓ / ✗） */
+.ac-dg .ac-dg-check-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ac-dg-check-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  min-width: 0;
+  padding: 8px 10px;
+  border: 1px solid #c3ecdc;
+  border-radius: var(--radius-sm);
+  background: var(--ok-soft);
+}
+
+.ac-dg-check-item--fail {
+  border-color: #f6cdcd;
+  background: var(--danger-soft);
+}
+
+.ac-dg-check-mark {
+  display: flex;
+  flex: 0 0 auto;
+  margin-top: 1px;
+  color: #047857;
+}
+
+.ac-dg-check-item--fail .ac-dg-check-mark {
+  color: var(--danger);
+}
+
+.ac-dg-check-body {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.ac-dg-check-name {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--text-1);
+}
+
+.ac-dg-check-detail {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.6;
+  color: var(--text-2);
+  word-break: break-word;
+}
+
+/* ============================================================
+   ⑨ 「AI 拆解与预估」可回放流程弹窗
+   ============================================================ */
+.ac-dg-replay {
+  --ac-dg-replay-cols: minmax(0, 1fr) 52px 74px 74px 84px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 336px;
+  overflow-y: auto;
+}
+
+.ac-dg-replay-head {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: var(--ac-dg-replay-cols);
+  align-items: center;
+  gap: 8px;
+  padding: 6px 9px;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-xs);
+  background: var(--bg-subtle);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  color: var(--text-3);
+  white-space: nowrap;
+}
+
+.ac-dg-replay-row {
+  display: grid;
+  grid-template-columns: var(--ac-dg-replay-cols);
+  align-items: center;
+  gap: 8px;
+  padding: 8px 9px;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-xs);
+  background: var(--bg-card);
+  font-size: 12px;
+}
+
+.ac-dg-replay-row--ok {
+  border-color: #c3ecdc;
+  background: var(--ok-soft);
+}
+
+.ac-dg-replay-row--running {
+  border-color: #d8dcfb;
+  background: var(--brand-soft);
+}
+
+.ac-dg-replay-head > span:nth-child(n + 2),
+.ac-dg-replay-row > span:nth-child(n + 2) {
+  text-align: right;
+}
+
+.ac-dg-replay-name {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  min-width: 0;
+  text-align: left;
+}
+
+.ac-dg-replay-idx {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  margin-top: 1px;
+  border-radius: 50%;
+  background: var(--bg-hover);
+  color: var(--text-2);
+  font-size: 10.5px;
+  font-weight: 700;
+}
+
+.ac-dg-replay-row--ok .ac-dg-replay-idx {
+  background: var(--ok);
+  color: #fff;
+}
+
+.ac-dg-replay-row--running .ac-dg-replay-idx {
+  background: var(--brand);
+  color: #fff;
+}
+
+.ac-dg-replay-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.ac-dg-replay-text strong {
+  font-size: 12.5px;
+  color: var(--text-1);
+}
+
+.ac-dg-replay-detail {
+  font-size: 11px;
+  line-height: 1.55;
+  color: var(--text-2);
+}
+
+.ac-dg-replay-issue {
+  color: #b45309;
+  font-weight: 700;
+}
+
+.ac-dg-replay-state {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 5px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--text-2);
+  white-space: nowrap;
+}

@@ -1,0 +1,349 @@
+/**
+ * 总览驾驶舱（overview）页面专属补充样式
+ * 仅使用 style.css 中已定义的设计 token，类名统一以 ac-ov- 前缀，避免污染全局类库。
+ */
+
+.ac-ov {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+/* ---------- 迭代摘要条 ---------- */
+.ac-ov-sprint {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.ac-ov-sprint-main {
+  flex: 1 1 320px;
+  min-width: 0;
+}
+
+.ac-ov-sprint-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-1);
+}
+
+.ac-ov-sprint-theme {
+  margin-top: 5px;
+  font-size: 12.5px;
+  color: var(--text-2);
+  line-height: 1.6;
+}
+
+.ac-ov-sprint-stats {
+  display: flex;
+  align-items: flex-start;
+  gap: 26px;
+  flex-wrap: wrap;
+}
+
+.ac-ov-stat {
+  min-width: 84px;
+}
+
+.ac-ov-stat-label {
+  font-size: 11.5px;
+  color: var(--text-3);
+}
+
+.ac-ov-stat-value {
+  margin-top: 2px;
+  font-size: 19px;
+  font-weight: 800;
+  color: var(--text-1);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.3px;
+}
+
+.ac-ov-stat-value small {
+  margin-left: 3px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--text-3);
+}
+
+.ac-ov-sprint-progress {
+  flex: 1 1 100%;
+}
+
+.ac-ov-sprint-goal {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--text-2);
+  line-height: 1.6;
+}
+
+/* ---------- 六环节流程条 ---------- */
+/* 六个环节等分可用宽度，避免在 1440 宽度下产生整页横向滚动 */
+.ac-ov .ac-flow {
+  overflow-x: visible;
+}
+
+.ac-ov .ac-flow-node {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.ac-ov-node-desc {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-size: 11px;
+  color: var(--text-3);
+  line-height: 1.55;
+}
+
+.ac-ov-node-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 2px;
+}
+
+.ac-ov-node-wip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-2);
+}
+
+.ac-ov-node-health {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: var(--text-2);
+  white-space: nowrap;
+}
+
+.ac-ov-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex: 0 0 auto;
+}
+
+/* ---------- 指标卡 ---------- */
+.ac-ov-delta-note {
+  margin-left: 5px;
+  font-weight: 500;
+  color: var(--text-3);
+}
+
+/* ---------- 待办表格 ---------- */
+.ac-ov-todo-table tbody tr {
+  cursor: pointer;
+}
+
+.ac-ov-todo-table tbody tr:hover {
+  background: var(--bg-hover);
+}
+
+.ac-ov-todo-row--done .ac-ov-todo-title {
+  text-decoration: line-through;
+  color: var(--text-3);
+}
+
+.ac-ov-todo-title {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-1);
+  line-height: 1.55;
+}
+
+.ac-ov-todo-done-flag {
+  display: inline-block;
+  margin-top: 3px;
+  padding: 0 6px;
+  border-radius: var(--radius-xs);
+  background: var(--ok-soft);
+  color: #047857;
+  font-size: 11px;
+}
+
+.ac-ov-todo-ref {
+  display: inline-block;
+  padding: 1px 6px;
+  border-radius: var(--radius-xs);
+  background: var(--brand-soft);
+  color: var(--brand-deep);
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* 待办类型筛选 chips 行 */
+.ac-ov-todo-filter {
+  padding: 10px var(--sp-4);
+  border-bottom: 1px solid var(--border-soft);
+  overflow-x: auto;
+}
+
+.ac-ov-todo-filter .ac-tabs {
+  flex-wrap: nowrap;
+}
+
+/* 可点击的编号 / 关联对象：去掉按钮默认外观，保留原有视觉 */
+.ac-ov-todo-ref--link,
+.ac-ov-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: none;
+  cursor: pointer;
+  background: none;
+  font: inherit;
+  text-align: left;
+}
+
+.ac-ov-todo-ref--link {
+  padding: 1px 6px;
+  background: var(--brand-soft);
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 600;
+}
+
+.ac-ov-todo-ref--link:hover,
+.ac-ov-link:hover {
+  background: var(--brand-soft);
+  color: var(--brand-deep);
+}
+
+.ac-ov-link {
+  padding: 1px 4px;
+  border-radius: var(--radius-xs);
+  color: var(--text-2);
+  font-size: 11.5px;
+  min-width: 0;
+}
+
+/* ---------- 事件时间线 ---------- */
+.ac-ov-split {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  gap: 14px;
+  align-items: start;
+}
+
+.ac-ov-transition {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+
+.ac-ov-from {
+  color: var(--text-3);
+  text-decoration: line-through;
+}
+
+.ac-ov-to {
+  color: var(--brand-deep);
+  font-weight: 700;
+}
+
+.ac-ov-event-target {
+  font-size: 11.5px;
+  color: var(--text-2);
+  min-width: 0;
+}
+
+.ac-ov-trace {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 1px 6px;
+  border: none;
+  border-radius: var(--radius-xs);
+  background: var(--bg-hover);
+  color: var(--text-3);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.ac-ov-trace:hover {
+  background: var(--brand-soft);
+  color: var(--brand-deep);
+}
+
+/* ---------- 轻量 toast ---------- */
+.ac-ov-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 32px;
+  z-index: 2000;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  background: rgba(19, 26, 36, 0.92);
+  color: #fff;
+  font-size: 12.5px;
+  font-weight: 600;
+  box-shadow: var(--shadow-lg);
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+/* ---------- Drawer 键值对 ---------- */
+.ac-ov-kv {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.ac-ov-kv-label {
+  font-size: 11.5px;
+  color: var(--text-3);
+}
+
+.ac-ov-kv-value {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-1);
+}
+
+/* ---------- 窄屏降级 ---------- */
+@media (max-width: 1180px) {
+  .ac-ov-split {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ac-ov .ac-flow {
+    flex-wrap: wrap;
+  }
+
+  .ac-ov .ac-flow-node {
+    flex: 1 1 160px;
+  }
+
+  .ac-ov .ac-flow-arrow {
+    display: none;
+  }
+}

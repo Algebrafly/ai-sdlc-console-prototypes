@@ -1,0 +1,519 @@
+/* ==========================================================================
+   AI 研发协作控制台 · Bug 流转页专属样式
+   类名前缀统一：ac-bg-
+   说明：仅补充 style.css 中缺失的类，全部沿用既有 CSS 变量 token。
+   ========================================================================== */
+
+/* ---------- 页根容器 ---------- */
+.ac-bg {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+}
+
+/* ============================================================
+   顶部 KPI 指标卡补充
+   ============================================================ */
+.ac-bg-kpi-foot {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.ac-bg-kpi-foot-divider {
+  width: 1px;
+  height: 10px;
+  background: var(--border);
+  flex: 0 0 auto;
+}
+
+/* ============================================================
+   筛选 chips（快捷筛选）
+   ============================================================ */
+.ac-bg-chip-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.ac-bg-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 26px;
+  padding: 0 10px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border);
+  background: #fff;
+  color: var(--text-2);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: border-color 0.14s ease, color 0.14s ease, background 0.14s ease;
+}
+.ac-bg-chip:hover {
+  border-color: var(--brand);
+  color: var(--brand-deep);
+}
+.ac-bg-chip--active {
+  background: var(--brand-soft);
+  border-color: #d8dcfb;
+  color: var(--brand-deep);
+}
+.ac-bg-chip-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex: 0 0 auto;
+}
+.ac-bg-chip-count {
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.75;
+}
+
+/* ============================================================
+   开关（仅看发布阻断 / 通知规则启停）
+   ============================================================ */
+.ac-bg-switch {
+  position: relative;
+  width: 34px;
+  height: 18px;
+  border-radius: var(--radius-pill);
+  background: #dfe3e9;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  flex: 0 0 auto;
+  transition: background 0.16s ease;
+}
+.ac-bg-switch::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: var(--shadow-xs);
+  transition: transform 0.16s ease;
+}
+.ac-bg-switch--on {
+  background: var(--brand);
+}
+.ac-bg-switch--on::after {
+  transform: translateX(16px);
+}
+.ac-bg-switch:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ============================================================
+   表格单元格截断
+   ============================================================ */
+.ac-bg-cell {
+  display: block;
+  max-width: 240px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ac-bg-cell--sm {
+  max-width: 150px;
+}
+.ac-bg-cell--wide {
+  max-width: 330px;
+}
+
+/* ---------- 台账标题单元格（主副两行） ---------- */
+.ac-bg-bug-title {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.ac-bg-bug-sub {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--text-3);
+}
+
+/* ---------- 表格滚动容器（限制纵向高度，保留横向滚动） ---------- */
+.ac-bg-log-wrap {
+  max-height: 440px;
+  overflow-y: auto;
+}
+.ac-bg-log-wrap .ac-table thead th {
+  position: sticky;
+  top: 0;
+}
+
+/* ============================================================
+   轻提示 Toast（右下角）
+   ============================================================ */
+.ac-bg-toast-wrap {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  pointer-events: none;
+}
+.ac-bg-toast {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  min-width: 240px;
+  max-width: 380px;
+  padding: 10px 12px;
+  border-radius: var(--radius);
+  background: #fff;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--brand);
+  box-shadow: var(--shadow-lg);
+  font-size: 12.5px;
+  color: var(--text-1);
+  line-height: 1.6;
+  animation: ac-bg-toast-in 0.18s ease;
+}
+.ac-bg-toast--ok {
+  border-left-color: var(--ok);
+}
+.ac-bg-toast--ai {
+  border-left-color: var(--ai);
+}
+.ac-bg-toast--warn {
+  border-left-color: var(--warn);
+}
+.ac-bg-toast--danger {
+  border-left-color: var(--danger);
+}
+.ac-bg-toast svg {
+  flex: 0 0 auto;
+  margin-top: 2px;
+}
+@keyframes ac-bg-toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ============================================================
+   内联 SVG 手绘图表
+   ============================================================ */
+.ac-bg-chart {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+.ac-bg-chart-label {
+  font-size: 11px;
+  fill: var(--text-3);
+  font-family: var(--font-sans);
+}
+.ac-bg-chart-value {
+  font-size: 11px;
+  font-weight: 700;
+  fill: var(--text-1);
+  font-family: var(--font-sans);
+}
+.ac-bg-chart-track {
+  fill: var(--bg-hover);
+}
+.ac-bg-chart-grid-line {
+  stroke: var(--border-soft);
+  stroke-width: 1;
+}
+.ac-bg-chart-axis {
+  stroke: var(--border);
+  stroke-width: 1;
+}
+
+/* ============================================================
+   状态机流转卡（基于 BUG_STATE_FLOW）
+   ============================================================ */
+.ac-bg-state-arrow {
+  display: inline-flex;
+  align-items: center;
+  color: var(--text-3);
+  flex: 0 0 auto;
+}
+.ac-bg-state-note {
+  font-size: 11.5px;
+  color: var(--text-3);
+  line-height: 1.6;
+}
+
+/* ============================================================
+   抽屉内区块
+   ============================================================ */
+.ac-bg-drawer-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ---------- 5-Why 归因 ---------- */
+.ac-bg-why {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.ac-bg-why-item {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+.ac-bg-why-idx {
+  flex: 0 0 auto;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--ai-soft);
+  color: var(--ai-deep);
+  font-size: 11px;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.ac-bg-why-body {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.ac-bg-why-q {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--text-1);
+}
+.ac-bg-why-a {
+  font-size: 12.5px;
+  color: var(--text-2);
+  line-height: 1.65;
+  margin-top: 2px;
+}
+.ac-bg-why-ev {
+  margin-top: 4px;
+  font-size: 11.5px;
+  color: var(--text-3);
+  font-family: var(--font-mono);
+}
+
+/* ---------- 代码定位 ---------- */
+.ac-bg-code-loc {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--text-2);
+  background: var(--bg-hover);
+  border-radius: var(--radius-xs);
+  padding: 3px 8px;
+}
+
+/* ---------- 建议指派人候选卡（单选，交互与修复方案候选一致） ---------- */
+.ac-bg-assign-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.ac-bg-assign-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  cursor: pointer;
+  transition: border-color 0.14s ease, background 0.14s ease;
+}
+.ac-bg-assign-card:hover {
+  border-color: #d8dcfb;
+}
+.ac-bg-assign-card--chosen {
+  border-color: #d8dcfb;
+  background: var(--brand-soft);
+}
+.ac-bg-assign-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.ac-bg-assign-id {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.ac-bg-assign-score {
+  flex: 0 0 auto;
+  font-size: 11.5px;
+  color: var(--text-3);
+  font-variant-numeric: tabular-nums;
+}
+.ac-bg-assign-score strong {
+  font-size: 13px;
+  color: var(--brand-deep);
+}
+.ac-bg-assign-reason {
+  font-size: 12.5px;
+  color: var(--text-2);
+  line-height: 1.65;
+}
+.ac-bg-assign-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  font-size: 11px;
+  color: var(--text-3);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- 修复方案候选 ---------- */
+.ac-bg-fix-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.ac-bg-fix-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.ac-bg-fix-card--chosen {
+  border-color: #d8dcfb;
+  background: var(--brand-soft);
+}
+.ac-bg-fix-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.ac-bg-fix-desc {
+  font-size: 12.5px;
+  color: var(--text-2);
+  line-height: 1.65;
+}
+.ac-bg-fix-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+.ac-bg-fix-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.ac-bg-fix-stat-label {
+  font-size: 11px;
+  color: var(--text-3);
+}
+.ac-bg-fix-stat-value {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--text-1);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- 验证 / 预防条目 ---------- */
+.ac-bg-step-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.ac-bg-step-item {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  font-size: 12.5px;
+  color: var(--text-2);
+  line-height: 1.65;
+}
+.ac-bg-step-idx {
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--bg-hover);
+  color: var(--text-2);
+  font-size: 10.5px;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+}
+
+/* ---------- 抽屉内小节标题（无左侧色条，避免与卡片标题抢层级） ---------- */
+.ac-bg-block-title {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-1);
+  margin-bottom: 8px;
+}
+.ac-bg-block-title svg {
+  color: var(--ai);
+  flex: 0 0 auto;
+}
+
+/* ============================================================
+   影响面 / 方案弹窗
+   ============================================================ */
+.ac-bg-impact {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+.ac-bg-impact-item {
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  padding: 8px 10px;
+  background: var(--bg-subtle);
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+.ac-bg-impact-dim {
+  font-size: 11px;
+  color: var(--text-3);
+}
+.ac-bg-impact-value {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-1);
+  line-height: 1.5;
+}
+
+/* ============================================================
+   根因报告列表
+   ============================================================ */
+.ac-bg-report-meta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 16px;
+}

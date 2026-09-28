@@ -1,0 +1,276 @@
+{
+  "version": 1,
+  "format": "axhub-published-source",
+  "sourceRoot": "source",
+  "entry": "index.tsx",
+  "files": [
+    {
+      "path": "annotation-source.json",
+      "kind": "source"
+    },
+    {
+      "path": "components/Drawer.tsx",
+      "kind": "source"
+    },
+    {
+      "path": "components/FormFields.tsx",
+      "kind": "source"
+    },
+    {
+      "path": "components/Layout.tsx",
+      "kind": "source"
+    },
+    {
+      "path": "components/Modal.tsx",
+      "kind": "source"
+    },
+    {
+      "path": "data-ai-flow.ts",
+      "kind": "source"
+    },
+    {
+      "path": "data-kb.ts",
+      "kind": "source"
+    },
+    {
+      "path": "data-mgmt.ts",
+      "kind": "source"
+    },
+    {
+      "path": "data.ts",
+      "kind": "source"
+    },
+    {
+      "path": "docs/impl-00-overview.md",
+      "kind": "source"
+    },
+    {
+      "path": "docs/impl-01-protocol.md",
+      "kind": "source"
+    },
+    {
+      "path": "docs/impl-02-agents.md",
+      "kind": "source"
+    },
+    {
+      "path": "docs/impl-03-state-machine.md",
+      "kind": "source"
+    },
+    {
+      "path": "docs/impl-04-data-model.md",
+      "kind": "source"
+    },
+    {
+      "path": "docs/impl-05-integration.md",
+      "kind": "source"
+    },
+    {
+      "path": "docs/impl-06-ide-plugin.md",
+      "kind": "source"
+    },
+    {
+      "path": "docs/impl-07-console.md",
+      "kind": "source"
+    },
+    {
+      "path": "docs/impl-08-security.md",
+      "kind": "source"
+    },
+    {
+      "path": "docs/impl-09-roadmap.md",
+      "kind": "source"
+    },
+    {
+      "path": "docs/impl-10-management.md",
+      "kind": "source"
+    },
+    {
+      "path": "docs/impl-11-prototype-axhub.md",
+      "kind": "source"
+    },
+    {
+      "path": "docs/impl-12-api-test-hifox.md",
+      "kind": "source"
+    },
+    {
+      "path": "docs/impl-13-knowledge-weknora.md",
+      "kind": "source"
+    },
+    {
+      "path": "index.tsx",
+      "kind": "entry"
+    },
+    {
+      "path": "pages/ai-observe.css",
+      "kind": "source"
+    },
+    {
+      "path": "pages/AiObservePage.tsx",
+      "kind": "source"
+    },
+    {
+      "path": "pages/api-test.css",
+      "kind": "source"
+    },
+    {
+      "path": "pages/ApiTestPage.tsx",
+      "kind": "source"
+    },
+    {
+      "path": "pages/board.css",
+      "kind": "source"
+    },
+    {
+      "path": "pages/BoardPage.tsx",
+      "kind": "source"
+    },
+    {
+      "path": "pages/bug.css",
+      "kind": "source"
+    },
+    {
+      "path": "pages/BugPage.tsx",
+      "kind": "source"
+    },
+    {
+      "path": "pages/coding.css",
+      "kind": "source"
+    },
+    {
+      "path": "pages/CodingPage.tsx",
+      "kind": "source"
+    },
+    {
+      "path": "pages/design.css",
+      "kind": "source"
+    },
+    {
+      "path": "pages/DesignPage.tsx",
+      "kind": "source"
+    },
+    {
+      "path": "pages/insight.css",
+      "kind": "source"
+    },
+    {
+      "path": "pages/InsightPage.tsx",
+      "kind": "source"
+    },
+    {
+      "path": "pages/integration.css",
+      "kind": "source"
+    },
+    {
+      "path": "pages/IntegrationPage.tsx",
+      "kind": "source"
+    },
+    {
+      "path": "pages/knowledge.css",
+      "kind": "source"
+    },
+    {
+      "path": "pages/KnowledgePage.tsx",
+      "kind": "source"
+    },
+    {
+      "path": "pages/overview.css",
+      "kind": "source"
+    },
+    {
+      "path": "pages/OverviewPage.tsx",
+      "kind": "source"
+    },
+    {
+      "path": "pages/people.css",
+      "kind": "source"
+    },
+    {
+      "path": "pages/PeoplePage.tsx",
+      "kind": "source"
+    },
+    {
+      "path": "pages/pipeline.css",
+      "kind": "source"
+    },
+    {
+      "path": "pages/PipelinePage.tsx",
+      "kind": "source"
+    },
+    {
+      "path": "pages/project.css",
+      "kind": "source"
+    },
+    {
+      "path": "pages/ProjectPage.tsx",
+      "kind": "source"
+    },
+    {
+      "path": "pages/prototype.css",
+      "kind": "source"
+    },
+    {
+      "path": "pages/PrototypePage.tsx",
+      "kind": "source"
+    },
+    {
+      "path": "pages/release.css",
+      "kind": "source"
+    },
+    {
+      "path": "pages/ReleasePage.tsx",
+      "kind": "source"
+    },
+    {
+      "path": "pages/req-pool.css",
+      "kind": "source"
+    },
+    {
+      "path": "pages/ReqPoolPage.tsx",
+      "kind": "source"
+    },
+    {
+      "path": "pages/requirement.css",
+      "kind": "source"
+    },
+    {
+      "path": "pages/RequirementPage.tsx",
+      "kind": "source"
+    },
+    {
+      "path": "pages/schedule.css",
+      "kind": "source"
+    },
+    {
+      "path": "pages/SchedulePage.tsx",
+      "kind": "source"
+    },
+    {
+      "path": "pages/settings.css",
+      "kind": "source"
+    },
+    {
+      "path": "pages/SettingsPage.tsx",
+      "kind": "source"
+    },
+    {
+      "path": "pages/team.css",
+      "kind": "source"
+    },
+    {
+      "path": "pages/TeamPage.tsx",
+      "kind": "source"
+    },
+    {
+      "path": "pages/test.css",
+      "kind": "source"
+    },
+    {
+      "path": "pages/TestPage.tsx",
+      "kind": "source"
+    },
+    {
+      "path": "style.css",
+      "kind": "source"
+    }
+  ]
+}

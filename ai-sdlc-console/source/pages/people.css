@@ -1,0 +1,641 @@
+/**
+ * 人员管理（people / pageId: people）页面专属样式
+ * ------------------------------------------------------------
+ * 独占前缀：根类 .ac-pp，全部私有类以 .ac-pp- 开头，避免与 style.css 全局类库
+ * 以及其他页面（project.css / coding.css / test.css 等）的私有类冲突。
+ * 本文件不定义 .ac-page —— 页面根元素直接使用独占前缀类 .ac-pp。
+ * 仅使用 style.css 中已声明的设计 token（--brand / --ai / --ok / --warn / --danger /
+ * --info / --text-1..3 / --border / --bg-subtle / --radius-* / --shadow-* / --sp-*）。
+ */
+
+.ac-pp { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+
+/* 区块小标题在弹性容器中由 gap 统一控制间距，避免与自身 margin 叠加 */
+.ac-pp > .ac-section-title { margin-bottom: 0; }
+
+/* ============================================================
+   通用：文本 / 行 / 单元格
+   ============================================================ */
+.ac-pp-para { margin: 0; font-size: 12.5px; color: var(--text-2); line-height: 1.75; }
+
+.ac-pp-list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 6px; }
+
+.ac-pp-list li { position: relative; padding-left: 16px; font-size: 12.5px; color: var(--text-2); line-height: 1.7; }
+
+.ac-pp-list--sm li { font-size: 12px; line-height: 1.65; }
+
+.ac-pp-list li::before {
+  content: '';
+  position: absolute;
+  left: 3px;
+  top: 9px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--brand);
+  opacity: 0.55;
+}
+
+.ac-pp-inline-icon { display: inline-block; vertical-align: -2px; margin-right: 3px; }
+
+.ac-pp-inline-progress { width: 120px; flex: 0 0 auto; }
+
+/* 可点击表格行 */
+.ac-pp-row { cursor: pointer; }
+
+.ac-pp-th-sort { cursor: pointer; user-select: none; white-space: nowrap; }
+
+.ac-pp-th-sort:hover { color: var(--brand-deep); }
+
+.ac-pp-th-inner { display: inline-flex; align-items: center; gap: 4px; }
+
+.ac-pp-sort-idle { opacity: 0.28; transform: rotate(90deg); }
+
+.ac-pp-sort-asc { color: var(--brand); }
+
+.ac-pp-sort-desc { color: var(--brand); transform: rotate(180deg); }
+
+/* 表格内的换行文本列 */
+.ac-pp-cell-team,
+.ac-pp-cell-note,
+.ac-pp-cell-skill,
+.ac-pp-cell-cert { max-width: 250px; line-height: 1.6; white-space: normal; }
+
+.ac-pp-cell-note { max-width: 320px; }
+
+.ac-pp-cell-cert { max-width: 300px; }
+
+/* 筛选条：多下拉时允许换行 */
+.ac-pp-filter { flex-wrap: wrap; }
+
+.ac-pp-filter .ac-input { flex: 1 1 220px; min-width: 180px; }
+
+.ac-pp-filter .ac-select { flex: 0 0 auto; width: auto; min-width: 116px; }
+
+/* 负载条 */
+.ac-pp-loadbar { gap: 6px; }
+
+.ac-pp-loadbar .ac-progress { flex: 1 1 auto; }
+
+.ac-pp-loadbar .ac-progress-label { min-width: 46px; font-weight: 700; }
+
+/* 图例行 */
+.ac-pp-legend {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px 18px;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border-soft);
+}
+
+.ac-pp-legend-note {
+  flex: 1 1 300px;
+  font-size: 11.5px;
+  color: var(--text-3);
+  line-height: 1.65;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ============================================================
+   手绘 SVG 图表共用
+   ============================================================ */
+.ac-pp-svg { display: block; width: 100%; height: auto; overflow: visible; }
+
+.ac-pp-svg-grid { stroke: #e8ebf0; stroke-width: 1; }
+
+.ac-pp-svg-track { fill: #eceff4; }
+
+.ac-pp-svg-tick { font-size: 10px; fill: var(--text-3); font-family: var(--font-mono); }
+
+.ac-pp-svg-name { font-size: 11.5px; font-weight: 600; fill: var(--text-1); }
+
+.ac-pp-svg-value { font-size: 11px; font-weight: 700; fill: var(--text-2); font-family: var(--font-mono); }
+
+/* 产能 100% 参考线 */
+.ac-pp-svg-cap { stroke: #334155; stroke-width: 1.6; stroke-dasharray: 3 2; }
+
+/* 团队均值参考线 */
+.ac-pp-svg-avg { stroke: var(--ai); stroke-width: 1.6; stroke-dasharray: 5 3; }
+
+.ac-pp-svg-avg-label { font-size: 10px; font-weight: 700; fill: #fff; }
+
+.ac-pp-bar-hit { cursor: pointer; }
+
+.ac-pp-bar-hit:hover rect { filter: brightness(0.95); }
+
+.ac-pp-bar-hit:focus { outline: none; }
+
+.ac-pp-donut-value { font-size: 26px; font-weight: 800; fill: var(--text-1); font-family: var(--font-mono); }
+
+.ac-pp-donut-label { font-size: 10.5px; fill: var(--text-3); }
+
+.ac-pp-radar-label { font-size: 11.5px; font-weight: 700; fill: var(--text-1); }
+
+/* ============================================================
+   技能矩阵热力网格
+   ============================================================ */
+.ac-pp-heat-scroll { width: 100%; overflow-x: auto; }
+
+.ac-pp-heat-scroll::-webkit-scrollbar { height: 8px; }
+
+.ac-pp-heat-scroll::-webkit-scrollbar-thumb { background: #d8dde5; border-radius: 4px; }
+
+.ac-pp-heat-svg { width: auto; min-width: 712px; }
+
+.ac-pp-heat-col { font-size: 9.5px; font-weight: 600; fill: var(--text-2); }
+
+.ac-pp-heat-col--critical { fill: var(--danger); font-weight: 800; }
+
+.ac-pp-heat-row { font-size: 11.5px; font-weight: 700; fill: var(--text-1); }
+
+.ac-pp-heat-cell { cursor: pointer; }
+
+.ac-pp-heat-cell:hover rect { stroke: var(--brand); stroke-width: 1.6; }
+
+.ac-pp-heat-cell:focus { outline: none; }
+
+.ac-pp-heat-num { font-size: 11px; font-weight: 800; font-family: var(--font-mono); pointer-events: none; }
+
+/* ============================================================
+   成员卡片
+   ============================================================ */
+.ac-pp-mcard {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding: var(--sp-4);
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xs);
+  min-width: 0;
+  text-align: left;
+  font-family: inherit;
+  cursor: pointer;
+  transition: box-shadow 0.16s ease, border-color 0.16s ease, transform 0.16s ease;
+}
+
+.ac-pp-mcard:hover { box-shadow: var(--shadow-sm); border-color: #c9cfda; transform: translateY(-1px); }
+
+.ac-pp-mcard--ai { border-color: #ddd0f7; background: linear-gradient(180deg, #fbf9ff 0%, #fff 46%); }
+
+.ac-pp-mcard-head { display: flex; align-items: flex-start; gap: 10px; min-width: 0; }
+
+.ac-pp-mcard-name {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-1);
+  line-height: 1.35;
+}
+
+.ac-pp-mcard-skills { display: flex; flex-wrap: wrap; gap: 4px; }
+
+.ac-pp-mcard-load {
+  padding: 7px 9px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+}
+
+.ac-pp-mcard-foot {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-top: 9px;
+  border-top: 1px solid var(--border-soft);
+  margin-top: auto;
+}
+
+/* 技能小标签：按等级着色 */
+.ac-pp-skill-chips { display: flex; flex-wrap: wrap; gap: 5px; }
+
+.ac-pp-skill-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 7px;
+  border-radius: var(--radius-pill);
+  font-size: 11px;
+  font-weight: 600;
+  border: 1px solid var(--border);
+  background: #fff;
+  color: var(--text-2);
+  max-width: 100%;
+}
+
+.ac-pp-skill-chip b { font-family: var(--font-mono); font-size: 10px; font-weight: 800; }
+
+.ac-pp-skill-chip--l1 { background: #f1f3f8; border-color: #e4e8ee; }
+.ac-pp-skill-chip--l2 { background: #dfe6fd; border-color: #cfd8fa; color: #3730a3; }
+.ac-pp-skill-chip--l3 { background: #b9c4fa; border-color: #a6b3f6; color: #312e81; }
+.ac-pp-skill-chip--l4 { background: #7c86ee; border-color: #6b75e6; color: #fff; }
+.ac-pp-skill-chip--l5 { background: #4338ca; border-color: #3730a3; color: #fff; }
+.ac-pp-skill-chip--ai { background: var(--ai-soft); border-color: #ddd0f7; color: var(--ai-deep); }
+
+/* 等级徽章 */
+.ac-pp-level-badge {
+  padding: 2px 9px;
+  border-radius: var(--radius-pill);
+  font-size: 11.5px;
+  font-weight: 800;
+  font-family: var(--font-mono);
+}
+
+.ac-pp-level-badge--1 { background: #f1f3f8; color: var(--text-2); }
+.ac-pp-level-badge--2 { background: #dfe6fd; color: #3730a3; }
+.ac-pp-level-badge--3 { background: #b9c4fa; color: #312e81; }
+.ac-pp-level-badge--4 { background: #7c86ee; color: #fff; }
+.ac-pp-level-badge--5 { background: #4338ca; color: #fff; }
+
+/* 成本条形列表 */
+.ac-pp-cost-list { display: flex; flex-direction: column; gap: 7px; }
+
+.ac-pp-cost-row { display: flex; align-items: center; gap: 8px; min-width: 0; }
+
+.ac-pp-cost-name { flex: 0 0 56px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* ============================================================
+   AI 区块（洞察 / 再平衡 / 成长建议）
+   ============================================================ */
+.ac-pp-ai-card { border-color: #ddd0f7; }
+
+.ac-pp-insight-list { display: flex; flex-direction: column; gap: 10px; }
+
+.ac-pp-insight {
+  padding: 11px 13px;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--info);
+  border-radius: var(--radius-sm);
+  background: #fff;
+  min-width: 0;
+}
+
+.ac-pp-insight--danger { border-left-color: var(--danger); background: #fffcfc; }
+.ac-pp-insight--warn { border-left-color: var(--warn); background: #fffdf8; }
+.ac-pp-insight--ok { border-left-color: var(--ok); background: #fcfffd; }
+
+.ac-pp-insight-head { display: flex; align-items: center; gap: 8px; min-width: 0; }
+
+.ac-pp-insight-icon { display: flex; flex: 0 0 auto; color: var(--text-2); }
+
+.ac-pp-insight--danger .ac-pp-insight-icon { color: var(--danger); }
+.ac-pp-insight--warn .ac-pp-insight-icon { color: var(--warn); }
+.ac-pp-insight--ok .ac-pp-insight-icon { color: var(--ok); }
+
+.ac-pp-insight-title { font-size: 13px; font-weight: 700; color: var(--text-1); line-height: 1.5; }
+
+.ac-pp-signals { display: flex; flex-direction: column; gap: 4px; margin-top: 8px; }
+
+.ac-pp-signal { display: flex; align-items: baseline; gap: 8px; min-width: 0; }
+
+.ac-pp-signal-source {
+  flex: 0 0 auto;
+  padding: 1px 6px;
+  border-radius: var(--radius-xs);
+  background: var(--bg-hover);
+  color: var(--text-3);
+  font-size: 10.5px;
+  font-weight: 600;
+}
+
+.ac-pp-signal-value { font-size: 12px; color: var(--text-2); line-height: 1.65; }
+
+.ac-pp-action {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px dashed var(--border);
+  font-size: 12px;
+  color: var(--text-1);
+  line-height: 1.7;
+}
+
+.ac-pp-action > svg { flex: 0 0 auto; margin-top: 4px; color: var(--ai); }
+
+/* ============================================================
+   负载：任务标签 / 再平衡 / 反差案例
+   ============================================================ */
+.ac-pp-task-chips { display: inline-flex; flex-wrap: wrap; gap: 3px; max-width: 220px; }
+
+.ac-pp-task-chip {
+  padding: 1px 6px;
+  border-radius: var(--radius-xs);
+  border: 1px solid #d8dcfb;
+  background: var(--brand-soft);
+  color: var(--brand-deep);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 700;
+  cursor: pointer;
+  line-height: 1.6;
+  transition: background 0.14s ease, border-color 0.14s ease;
+}
+
+.ac-pp-task-chip:hover { background: var(--brand); border-color: var(--brand); color: #fff; }
+
+.ac-pp-task-chip--review { background: #f1f3f6; border-color: #e4e8ee; color: var(--text-2); }
+
+.ac-pp-task-chip--review:hover { background: var(--text-2); border-color: var(--text-2); color: #fff; }
+
+.ac-pp-rebalance-list { display: flex; flex-direction: column; gap: 10px; }
+
+.ac-pp-rebalance {
+  padding: 11px 13px;
+  border: 1px solid var(--border-soft);
+  border-left: 3px solid var(--brand);
+  border-radius: var(--radius-sm);
+  background: var(--bg-subtle);
+  min-width: 0;
+}
+
+.ac-pp-rebalance--release { border-left-color: var(--ok); }
+.ac-pp-rebalance--absorb { border-left-color: var(--info); }
+.ac-pp-rebalance--bottleneck { border-left-color: var(--warn); background: #fffdf8; }
+
+.ac-pp-rebalance-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+
+.ac-pp-rebalance-tasks { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 8px; }
+
+.ac-pp-rebalance .ac-pp-signal { margin-top: 8px; }
+
+.ac-pp-rebalance .ac-pp-action { border-top-color: var(--border); }
+
+/* 反差案例四宫格 */
+.ac-pp-contrast { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+
+.ac-pp-contrast-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 12px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  min-width: 0;
+}
+
+.ac-pp-contrast-value { font-size: 22px; font-weight: 800; line-height: 1.15; font-variant-numeric: tabular-nums; }
+
+/* ============================================================
+   AI 协作偏好
+   ============================================================ */
+.ac-pp-pref-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: var(--sp-4);
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xs);
+  min-width: 0;
+}
+
+.ac-pp-pref-head { display: flex; align-items: flex-start; gap: 10px; min-width: 0; }
+
+.ac-pp-pref-head .ac-align-end { align-items: flex-end; }
+
+.ac-pp-pref-rate {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  background: var(--ai-soft);
+  border: 1px solid #ddd0f7;
+  border-radius: var(--radius-sm);
+}
+
+.ac-pp-pref-rate-value {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--ai-deep);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.ac-pp-pref-kv { grid-template-columns: 74px minmax(0, 1fr); gap: 6px 10px; }
+
+.ac-pp-pref-usecase {
+  padding: 9px 11px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+}
+
+.ac-pp-pref-foot {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-top: 9px;
+  border-top: 1px solid var(--border-soft);
+  margin-top: auto;
+  min-width: 0;
+}
+
+/* 拒绝理由聚合 */
+.ac-pp-reject-body { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+
+.ac-pp-reject-body > svg { flex: 0 0 auto; }
+
+.ac-pp-improve { display: flex; flex-direction: column; gap: 9px; }
+
+.ac-pp-improve-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: var(--ai-deep);
+}
+
+.ac-pp-improve-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 4px;
+  padding: 8px 10px;
+  background: #fff;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+}
+
+.ac-pp-improve-item > .ac-tag { justify-self: start; }
+
+.ac-pp-improve-sample { color: var(--text-3); line-height: 1.6; }
+
+/* 提示词模板分布 */
+.ac-pp-template-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+
+.ac-pp-template {
+  padding: 11px 12px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  min-width: 0;
+}
+
+/* ============================================================
+   成长与认证
+   ============================================================ */
+.ac-pp-growth {
+  padding: 11px 13px;
+  background: var(--brand-soft);
+  border: 1px solid #d8dcfb;
+  border-left: 3px solid var(--brand);
+  border-radius: var(--radius-sm);
+}
+
+.ac-pp-growth-goal {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--brand-ink);
+  line-height: 1.7;
+  margin-bottom: 7px;
+}
+
+.ac-pp-growth-goal > svg { flex: 0 0 auto; margin-top: 4px; }
+
+.ac-pp-growth-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+
+.ac-pp-growth-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  min-width: 0;
+}
+
+.ac-pp-growth-card--ai { border-color: #ddd0f7; background: linear-gradient(180deg, #fbf9ff 0%, #fff 50%); }
+
+.ac-pp-growth-head { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; }
+
+.ac-pp-growth-card .ac-pp-growth-goal {
+  margin-bottom: 0;
+  padding: 7px 9px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  color: var(--text-1);
+  font-weight: 600;
+}
+
+.ac-pp-growth-foot {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border-soft);
+  margin-top: auto;
+}
+
+/* 认证列表（抽屉内） */
+.ac-pp-cert-list { display: flex; flex-direction: column; gap: 7px; }
+
+.ac-pp-cert-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 10px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  min-width: 0;
+}
+
+/* 关联工作项列表（抽屉内） */
+.ac-pp-task-list { display: flex; flex-direction: column; gap: 6px; }
+
+.ac-pp-task-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  padding: 7px 10px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  min-width: 0;
+}
+
+/* 同技能成员水位 */
+.ac-pp-peer-row { display: flex; flex-wrap: wrap; gap: 6px; }
+
+.ac-pp-peer {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 7px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  background: #fff;
+}
+
+.ac-pp-peer--me { border-color: var(--brand); box-shadow: 0 0 0 2px var(--brand-soft); }
+
+.ac-pp-peer-name { font-size: 11.5px; font-weight: 700; color: var(--text-2); }
+
+.ac-pp-peer-level {
+  width: 17px;
+  height: 17px;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 800;
+  font-family: var(--font-mono);
+}
+
+/* 抽屉头部 */
+.ac-pp-drawer-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+/* 成长建议分组 */
+.ac-pp-growth-advice { display: flex; flex-direction: column; gap: 14px; }
+
+.ac-pp-advice-group { min-width: 0; }
+
+.ac-pp-advice-who {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding-bottom: 7px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.ac-pp-advice-items { display: flex; flex-direction: column; gap: 9px; }
+
+/* ============================================================
+   窄屏降级（1440×900 桌面端为主，窄屏仅做堆叠兜底）
+   ============================================================ */
+@media (max-width: 1180px) {
+  .ac-pp-growth-grid,
+  .ac-pp-contrast { grid-template-columns: minmax(0, 1fr); }
+
+  .ac-pp-cell-team,
+  .ac-pp-cell-note,
+  .ac-pp-cell-skill,
+  .ac-pp-cell-cert { max-width: none; }
+}

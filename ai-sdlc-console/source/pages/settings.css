@@ -1,0 +1,388 @@
+/**
+ * 安全与审计（settings）页面专属补充样式
+ * 仅使用 style.css 中已定义的设计 token，类名统一以 ac-st- 前缀，避免污染全局类库。
+ */
+
+.ac-st {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+}
+
+.ac-st > .ac-section-title {
+  margin-bottom: 0;
+}
+
+/* ---------- 顶部安全态势摘要条 ---------- */
+.ac-st-posture {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: 14px 26px;
+}
+
+.ac-st-posture-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  min-width: 0;
+  flex: 1 1 200px;
+}
+
+.ac-st-posture-icon {
+  flex: 0 0 auto;
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-hover);
+  color: var(--text-2);
+}
+
+.ac-st-posture-icon--ok { background: var(--ok-soft); color: #065f46; }
+.ac-st-posture-icon--warn { background: var(--warn-soft); color: #92400e; }
+.ac-st-posture-icon--danger { background: var(--danger-soft); color: #991b1b; }
+.ac-st-posture-icon--brand { background: var(--brand-soft); color: var(--brand-deep); }
+.ac-st-posture-icon--ai { background: var(--ai-soft); color: var(--ai-deep); }
+.ac-st-posture-icon--info { background: var(--info-soft); color: #1d4ed8; }
+
+.ac-st-posture-label {
+  font-size: 11.5px;
+  color: var(--text-3);
+  line-height: 1.4;
+}
+
+.ac-st-posture-value {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-1);
+  line-height: 1.4;
+  font-variant-numeric: tabular-nums;
+}
+
+.ac-st-posture-foot {
+  font-size: 11.5px;
+  color: var(--text-3);
+  line-height: 1.5;
+  margin-top: 2px;
+}
+
+/* ---------- 开关 ---------- */
+.ac-st-switch {
+  position: relative;
+  flex: 0 0 auto;
+  width: 46px;
+  height: 26px;
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: #d5dae2;
+  cursor: pointer;
+  transition: background 0.16s ease;
+}
+
+.ac-st-switch-dot {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: var(--shadow-xs);
+  transition: left 0.16s ease;
+}
+
+.ac-st-switch--on {
+  background: var(--ok);
+}
+
+.ac-st-switch--on .ac-st-switch-dot {
+  left: 23px;
+}
+
+.ac-st-switch--deny {
+  background: var(--danger);
+}
+
+.ac-st-switch--sm {
+  width: 38px;
+  height: 22px;
+}
+
+.ac-st-switch--sm .ac-st-switch-dot {
+  width: 16px;
+  height: 16px;
+}
+
+.ac-st-switch--sm.ac-st-switch--on .ac-st-switch-dot {
+  left: 19px;
+}
+
+.ac-st-switch-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  padding: 14px var(--sp-5);
+  background: none;
+  text-align: left;
+  font-family: inherit;
+}
+
+.ac-st-switch-title {
+  display: block;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--text-1);
+  margin-bottom: 3px;
+}
+
+.ac-st-switch-desc {
+  font-size: 12.5px;
+  color: var(--text-2);
+  line-height: 1.6;
+}
+
+/* ---------- 出网策略矩阵 ---------- */
+.ac-st-policy-grid {
+  align-items: stretch;
+}
+
+.ac-st-policy-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: var(--sp-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: #fff;
+  box-shadow: var(--shadow-xs);
+  min-width: 0;
+}
+
+.ac-st-policy-card--active {
+  border-color: var(--brand);
+  box-shadow: 0 0 0 3px var(--brand-soft);
+}
+
+.ac-st-policy-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ac-st-policy-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-1);
+}
+
+.ac-st-policy-desc {
+  font-size: 12px;
+  color: var(--text-2);
+  line-height: 1.6;
+}
+
+.ac-st-policy-rules {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ac-st-policy-rules li {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  font-size: 11.5px;
+  color: var(--text-2);
+  line-height: 1.55;
+}
+
+.ac-st-policy-rules svg {
+  flex: 0 0 auto;
+  margin-top: 2px;
+  color: var(--ok);
+}
+
+.ac-st-policy-envs {
+  margin-top: auto;
+  padding-top: 10px;
+  border-top: 1px solid var(--border-soft);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+/* ---------- 脱敏规则表 ---------- */
+.ac-st-sample {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+}
+
+.ac-st-sample-before {
+  color: var(--danger);
+  text-decoration: line-through;
+  text-decoration-color: rgba(239, 68, 68, 0.45);
+}
+
+.ac-st-sample-after {
+  color: var(--ok-text, #047857);
+  font-weight: 700;
+}
+
+.ac-st-rule-name {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--text-1);
+  line-height: 1.4;
+}
+
+.ac-st-cell-desc {
+  max-width: 300px;
+  line-height: 1.55;
+  white-space: normal;
+}
+
+.ac-st-center {
+  text-align: center;
+}
+
+/* ---------- 审计日志 ---------- */
+.ac-st-audit-actor {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.ac-st-audit-target {
+  max-width: 260px;
+  line-height: 1.5;
+  white-space: normal;
+}
+
+.ac-st-trace-code {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 1px 7px;
+  border-radius: var(--radius-xs);
+  background: var(--bg-hover);
+  color: var(--text-2);
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+
+.ac-st-audit-row {
+  cursor: pointer;
+}
+
+/* ---------- SSO ---------- */
+.ac-st-sso-grid {
+  grid-template-columns: 88px minmax(0, 1fr);
+  align-items: start;
+}
+
+.ac-st-sso-issuer {
+  word-break: break-all;
+  white-space: normal;
+  font-size: 12px;
+}
+
+.ac-st-notes {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ac-st-notes li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 12.5px;
+  color: var(--text-2);
+  line-height: 1.6;
+}
+
+.ac-st-notes svg {
+  flex: 0 0 auto;
+  margin-top: 2px;
+  color: var(--brand);
+}
+
+/* ---------- RBAC 矩阵 ---------- */
+.ac-st-rbac-role {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.ac-st-rbac-role-name {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--text-1);
+}
+
+.ac-st-rbac-row--current > td {
+  background: var(--brand-soft) !important;
+}
+
+.ac-st-rbac-row--current > td:first-child {
+  box-shadow: inset 3px 0 0 var(--brand);
+}
+
+.ac-st-rbac-cell {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.ac-st-rbac-perm-title {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-1);
+}
+
+.ac-st-rbac-perm-desc {
+  display: block;
+  font-size: 10.5px;
+  font-weight: 400;
+  color: var(--text-3);
+  margin-top: 2px;
+  white-space: normal;
+  line-height: 1.45;
+}
+
+/* ---------- 窄屏降级 ---------- */
+@media (max-width: 768px) {
+  .ac-st-posture {
+    gap: 12px 18px;
+  }
+
+  .ac-st-posture-item {
+    flex: 1 1 100%;
+  }
+
+  .ac-st-cell-desc,
+  .ac-st-audit-target {
+    max-width: none;
+  }
+}

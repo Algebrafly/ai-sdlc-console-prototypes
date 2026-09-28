@@ -1,0 +1,384 @@
+/**
+ * AI 能力观测（ai-observe）页面专属补充样式
+ * 仅使用 style.css 中已定义的设计 token，类名统一以 ac-ao- 前缀，避免污染全局类库。
+ */
+
+.ac-ao {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+}
+
+/* 区块小标题在弹性容器中由 gap 统一控制间距，避免与自身 margin 叠加 */
+.ac-ao > .ac-section-title {
+  margin-bottom: 0;
+}
+
+/* ---------- 模型清单 ---------- */
+.ac-ao-model-name {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--text-1);
+  line-height: 1.4;
+}
+
+.ac-ao-vendor {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ac-ao-vendor-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  flex: 0 0 auto;
+}
+
+.ac-ao-role-row {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.ac-ao-cell-desc {
+  max-width: 320px;
+  line-height: 1.55;
+  white-space: normal;
+}
+
+/* ---------- 横向条形图（手绘 SVG） ---------- */
+.ac-ao-hbar {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.ac-ao-hbar-name {
+  font-size: 11.5px;
+  font-weight: 600;
+  fill: var(--text-1);
+}
+
+.ac-ao-hbar-value {
+  font-size: 11.5px;
+  font-weight: 700;
+  fill: var(--text-2);
+  font-family: var(--font-mono);
+}
+
+.ac-ao-hbar-grid {
+  fill: #eceff4;
+}
+
+/* 调用趋势柱状图复用 style.css 的 ac-bars 体系，仅补一层容器留白 */
+.ac-ao-trend {
+  padding-top: 4px;
+}
+
+/* ---------- 概览统计行 ---------- */
+.ac-ao-stat-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-soft);
+}
+
+.ac-ao-stat {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ac-ao-stat-value {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-1);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Agent 卡片 ---------- */
+.ac-ao-agent-grid {
+  align-items: stretch;
+}
+
+.ac-ao-agent-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: var(--sp-4);
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xs);
+  min-width: 0;
+  transition: box-shadow 0.16s ease, border-color 0.16s ease;
+}
+
+.ac-ao-agent-card:hover {
+  box-shadow: var(--shadow-sm);
+  border-color: #c9cfda;
+}
+
+.ac-ao-agent-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.ac-ao-agent-name {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--text-1);
+  line-height: 1.35;
+}
+
+.ac-ao-agent-desc {
+  font-size: 12.5px;
+  color: var(--text-2);
+  line-height: 1.6;
+}
+
+.ac-ao-contract {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 8px 10px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+}
+
+.ac-ao-contract-label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--text-3);
+}
+
+.ac-ao-contract-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.ac-ao-agent-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border-soft);
+  margin-top: auto;
+}
+
+/* ---------- 执行轨迹 ---------- */
+.ac-ao-trace-row {
+  cursor: pointer;
+}
+
+.ac-ao-trace-target {
+  max-width: 300px;
+  line-height: 1.5;
+  white-space: normal;
+}
+
+/* 调用链 */
+.ac-ao-chain {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.ac-ao-hop {
+  position: relative;
+  display: flex;
+  gap: 12px;
+  padding: 0 0 16px 0;
+}
+
+.ac-ao-hop:last-child {
+  padding-bottom: 0;
+}
+
+.ac-ao-hop-rail {
+  position: relative;
+  flex: 0 0 auto;
+  width: 26px;
+  display: flex;
+  justify-content: center;
+}
+
+.ac-ao-hop-dot {
+  position: relative;
+  z-index: 1;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-hover);
+  color: var(--text-2);
+  border: 2px solid #cfd6e0;
+  flex: 0 0 auto;
+}
+
+.ac-ao-hop-dot--brand { background: var(--brand-soft); border-color: var(--brand); color: var(--brand-deep); }
+.ac-ao-hop-dot--ai { background: var(--ai-soft); border-color: var(--ai); color: var(--ai-deep); }
+.ac-ao-hop-dot--ok { background: var(--ok-soft); border-color: var(--ok); color: #065f46; }
+.ac-ao-hop-dot--warn { background: var(--warn-soft); border-color: var(--warn); color: #92400e; }
+.ac-ao-hop-dot--danger { background: var(--danger-soft); border-color: var(--danger); color: #991b1b; }
+.ac-ao-hop-dot--info { background: var(--info-soft); border-color: var(--info); color: #1d4ed8; }
+.ac-ao-hop-dot--teal { background: #d5f0eb; border-color: #0d9488; color: #0f766e; }
+.ac-ao-hop-dot--indigo { background: var(--brand-soft); border-color: #4338ca; color: #3730a3; }
+.ac-ao-hop-dot--pink { background: #fce7f3; border-color: #db2777; color: #be185d; }
+.ac-ao-hop-dot--slate { background: var(--bg-hover); border-color: #94a3b8; color: #475569; }
+
+/* 竖向连接线 */
+.ac-ao-hop-line {
+  position: absolute;
+  top: 26px;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  margin-left: -1px;
+  background: var(--border);
+}
+
+.ac-ao-hop:last-child .ac-ao-hop-line {
+  display: none;
+}
+
+.ac-ao-hop-body {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding-top: 1px;
+}
+
+.ac-ao-hop-head {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.ac-ao-hop-kind {
+  flex: 0 0 auto;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  padding: 1px 7px;
+  border-radius: var(--radius-pill);
+  background: var(--bg-hover);
+  color: var(--text-2);
+}
+
+.ac-ao-hop-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-1);
+}
+
+.ac-ao-hop-meta {
+  font-size: 12px;
+  color: var(--text-2);
+  margin-top: 3px;
+  line-height: 1.55;
+}
+
+.ac-ao-hop-cost {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 6px;
+  font-size: 11.5px;
+  color: var(--text-3);
+  font-variant-numeric: tabular-nums;
+}
+
+.ac-ao-hop-cost span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ---------- 知识库 ---------- */
+.ac-ao-rag-row {
+  cursor: pointer;
+}
+
+.ac-ao-rag-name {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-1);
+  line-height: 1.45;
+}
+
+.ac-ao-rag-kb {
+  display: block;
+  margin-top: 2px;
+  margin-left: 19px;
+}
+
+.ac-ao-rag-caret {
+  flex: 0 0 auto;
+  color: var(--text-3);
+  transition: transform 0.16s ease;
+}
+
+.ac-ao-rag-caret--open {
+  transform: rotate(90deg);
+}
+
+.ac-ao-rag-detail {
+  background: var(--bg-subtle) !important;
+}
+
+.ac-ao-rag-detail-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px 14px;
+  border-left: 3px solid var(--brand);
+  background: #fff;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-xs);
+}
+
+.ac-ao-rag-summary {
+  font-size: 12.5px;
+  color: var(--text-2);
+  line-height: 1.7;
+}
+
+.ac-ao-rag-detail-kv {
+  grid-template-columns: 82px minmax(0, 1fr);
+}
+
+/* ---------- 窄屏降级 ---------- */
+@media (max-width: 768px) {
+  .ac-ao-stat-row {
+    gap: 8px 16px;
+  }
+
+  .ac-ao-stat-row .ac-divider-v {
+    display: none;
+  }
+
+  .ac-ao-cell-desc,
+  .ac-ao-trace-target {
+    max-width: none;
+  }
+}

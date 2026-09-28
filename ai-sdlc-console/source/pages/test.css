@@ -1,0 +1,426 @@
+/* ============================================================
+   测试中心（TestPage）专属样式
+   仅补充 style.css 中缺失的类，全部沿用 ac- 前缀与既有 token
+   ============================================================ */
+
+/* 页面根容器（style.css 未定义，统一在此声明） */
+.ac-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  min-width: 0;
+}
+
+/* 可点击文本链接（跳转其他页面） */
+.ac-link {
+  color: var(--brand);
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+}
+.ac-link:hover {
+  color: var(--brand-deep);
+  text-decoration: underline;
+}
+
+/* ---------------- 用例库左右两栏 ---------------- */
+.ac-test-split {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  gap: 12px;
+  align-items: start;
+}
+
+.ac-tree {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.ac-tree-search {
+  position: relative;
+  margin-bottom: 8px;
+}
+.ac-tree-search .ac-input {
+  height: 30px;
+  font-size: 12.5px;
+  padding-left: 28px;
+}
+.ac-tree-search-icon {
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-3);
+  display: flex;
+  pointer-events: none;
+}
+.ac-tree-list {
+  max-height: 600px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.ac-tree-children {
+  padding-left: 14px;
+  margin-left: 7px;
+  border-left: 1px dashed var(--border);
+}
+.ac-tree-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  padding: 5px 8px;
+  border: none;
+  background: none;
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: 12.5px;
+  color: var(--text-2);
+  cursor: pointer;
+  text-align: left;
+}
+.ac-tree-row:hover {
+  background: var(--bg-hover);
+  color: var(--text-1);
+}
+.ac-tree-row--active {
+  background: var(--brand-soft);
+  color: var(--brand-deep);
+  font-weight: 600;
+}
+.ac-tree-caret {
+  display: inline-flex;
+  width: 14px;
+  flex: 0 0 auto;
+  color: var(--text-3);
+}
+.ac-tree-caret--hidden {
+  visibility: hidden;
+}
+.ac-tree-label {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ac-tree-count {
+  font-size: 11px;
+  color: var(--text-3);
+  font-variant-numeric: tabular-nums;
+  flex: 0 0 auto;
+}
+.ac-tree-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex: 0 0 auto;
+}
+
+/* ---------------- 筛选 chips ---------------- */
+.ac-chip-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.ac-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 26px;
+  padding: 0 10px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border);
+  background: #fff;
+  color: var(--text-2);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.ac-chip:hover {
+  border-color: var(--brand);
+  color: var(--brand-deep);
+}
+.ac-chip--active {
+  background: var(--brand-soft);
+  border-color: #d8dcfb;
+  color: var(--brand-deep);
+}
+.ac-chip-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex: 0 0 auto;
+}
+.ac-chip-count {
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.75;
+}
+
+/* ---------------- 开关 ---------------- */
+.ac-switch {
+  position: relative;
+  width: 34px;
+  height: 18px;
+  border-radius: var(--radius-pill);
+  background: #dfe3e9;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  flex: 0 0 auto;
+  transition: background 0.16s ease;
+}
+.ac-switch::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: var(--shadow-xs);
+  transition: transform 0.16s ease;
+}
+.ac-switch--on {
+  background: var(--brand);
+}
+.ac-switch--on::after {
+  transform: translateX(16px);
+}
+.ac-switch:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ---------------- 表格单元格截断 ---------------- */
+.ac-cell {
+  display: block;
+  max-width: 240px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ac-cell--sm {
+  max-width: 150px;
+}
+.ac-cell--wide {
+  max-width: 330px;
+}
+
+/* ---------------- 报告：失败用例条目 ---------------- */
+.ac-fail-item {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  margin-bottom: 10px;
+  background: #fff;
+}
+.ac-fail-item--open {
+  border-color: #d8dcfb;
+  background: var(--bg-subtle);
+}
+.ac-fail-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  cursor: pointer;
+}
+.ac-fail-title {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-1);
+  flex: 1 1 260px;
+  min-width: 0;
+}
+
+/* 内联 SVG 手绘图 */
+.ac-svg-chart {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+.ac-chart-grid-line {
+  stroke: var(--border-soft);
+  stroke-width: 1;
+}
+.ac-chart-axis {
+  stroke: var(--border);
+  stroke-width: 1;
+}
+.ac-chart-label {
+  font-size: 10px;
+  fill: var(--text-3);
+  font-family: var(--font-sans);
+}
+.ac-chart-value {
+  font-size: 10px;
+  font-weight: 700;
+  fill: var(--text-1);
+  font-family: var(--font-sans);
+}
+
+/* ---------------- 导入进度 ---------------- */
+.ac-import-progress {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-subtle);
+}
+.ac-import-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 12px;
+  color: var(--text-2);
+}
+
+/* ---------------- 轻提示 ---------------- */
+.ac-toast-wrap {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  pointer-events: none;
+}
+.ac-toast {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  min-width: 240px;
+  max-width: 380px;
+  padding: 10px 12px;
+  border-radius: var(--radius);
+  background: #fff;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--brand);
+  box-shadow: var(--shadow-lg);
+  font-size: 12.5px;
+  color: var(--text-1);
+  line-height: 1.6;
+  animation: ac-toast-in 0.18s ease;
+}
+.ac-toast--ok {
+  border-left-color: var(--ok);
+}
+.ac-toast--ai {
+  border-left-color: var(--ai);
+}
+.ac-toast--warn {
+  border-left-color: var(--warn);
+}
+.ac-toast--danger {
+  border-left-color: var(--danger);
+}
+.ac-toast svg {
+  flex: 0 0 auto;
+  margin-top: 2px;
+}
+@keyframes ac-toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* 报告摘要小卡 */
+.ac-report-summary {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+.ac-report-summary-item {
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  padding: 8px 10px;
+  background: var(--bg-subtle);
+}
+.ac-report-summary-label {
+  font-size: 11px;
+  color: var(--text-3);
+}
+.ac-report-summary-value {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--text-1);
+  font-variant-numeric: tabular-nums;
+  margin-top: 2px;
+}
+
+/* 执行记录：失败 > 0 的行左侧危险色竖条 */
+.ac-table tbody tr.ac-tr-danger td:first-child {
+  box-shadow: inset 3px 0 0 var(--danger);
+}
+
+/* 报告：通过 / 失败 / 阻塞 / 未执行 堆叠分布条 */
+.ac-stack-bar {
+  display: flex;
+  height: 14px;
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+  background: #eceff4;
+}
+.ac-stack-seg {
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+/* 报告头：左侧信息 + 右侧主操作 */
+.ac-report-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 16px;
+  align-items: start;
+}
+
+/* 报告：失败堆栈摘要深色块（比通用 .ac-code 更紧凑） */
+.ac-stack-code {
+  margin-top: 8px;
+}
+.ac-stack-code .ac-code-body {
+  padding: 9px 12px;
+  font-size: 11.5px;
+  line-height: 1.65;
+}
+.ac-stack-hit {
+  display: block;
+  background: rgba(239, 68, 68, 0.16);
+  border-left: 2px solid var(--danger);
+  margin: 0 -12px;
+  padding: 0 12px;
+}
+
+/* 小字辅助 */
+.ac-test-tiny {
+  font-size: 11px;
+  color: var(--text-3);
+  line-height: 1.6;
+}
+
+@media (max-width: 1180px) {
+  .ac-test-split {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .ac-report-summary {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .ac-report-head {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

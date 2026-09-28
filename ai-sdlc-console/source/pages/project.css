@@ -1,0 +1,606 @@
+/**
+ * 项目管理（project / pageId: project）页面专属样式
+ * ------------------------------------------------------------
+ * 独占前缀：根类 .ac-pj，全部私有类以 .ac-pj- 开头，避免与 style.css 全局类库
+ * 以及其他页面（coding.css / test.css / pipeline.css 等）的私有类冲突。
+ * 本文件不定义 .ac-page —— 页面根元素直接使用独占前缀类 .ac-pj。
+ * 仅使用 style.css 中已声明的设计 token（--brand / --ai / --ok / --warn / --danger /
+ * --info / --text-1..3 / --border / --bg-subtle / --radius-* / --shadow-* / --sp-*）。
+ */
+
+.ac-pj { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+
+/* 区块小标题在弹性容器中由 gap 统一控制间距，避免与自身 margin 叠加 */
+.ac-pj > .ac-section-title { margin-bottom: 0; }
+
+/* ============================================================
+   通用：文本 / 行 / 单元格
+   ============================================================ */
+.ac-pj-para { margin: 0; font-size: 12.5px; color: var(--text-2); line-height: 1.75; }
+
+.ac-pj-list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 7px; }
+
+.ac-pj-list li { position: relative; padding-left: 18px; font-size: 12.5px; color: var(--text-2); line-height: 1.7; }
+
+.ac-pj-list li::before {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 9px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--text-3);
+}
+
+.ac-pj-list--ok li::before { background: var(--ok); }
+.ac-pj-list--danger li::before { background: var(--danger); }
+.ac-pj-list--brand li::before { background: var(--brand); }
+
+/* 可点击表格行 */
+.ac-pj-row { cursor: pointer; }
+
+.ac-pj-cell-name { max-width: 260px; line-height: 1.5; white-space: normal; }
+
+.ac-pj-cell-desc,
+.ac-pj-cell-interest,
+.ac-pj-cell-role,
+.ac-pj-cell-freq,
+.ac-pj-cell-deliv,
+.ac-pj-cell-reason { max-width: 300px; line-height: 1.6; white-space: normal; }
+
+.ac-pj-cell-status { display: block; margin-top: 2px; max-width: 190px; line-height: 1.5; white-space: normal; }
+
+.ac-pj-cell-deliv { max-width: 320px; display: flex; flex-direction: column; gap: 2px; }
+
+.ac-pj-deliv-item { display: block; color: var(--text-2); }
+
+/* 可排序表头 */
+.ac-pj-th-sort { cursor: pointer; user-select: none; white-space: nowrap; }
+
+.ac-pj-th-sort:hover { color: var(--brand-deep); }
+
+.ac-pj-th-inner { display: inline-flex; align-items: center; gap: 4px; }
+
+.ac-pj-sort-idle { opacity: 0.28; transform: rotate(90deg); }
+
+/* 健康度色点 */
+.ac-pj-dot { width: 9px; height: 9px; border-radius: 50%; flex: 0 0 auto; display: inline-block; }
+
+.ac-pj-dot--green { background: var(--ok); box-shadow: 0 0 0 3px var(--ok-soft); }
+.ac-pj-dot--amber { background: var(--warn); box-shadow: 0 0 0 3px var(--warn-soft); }
+.ac-pj-dot--red { background: var(--danger); box-shadow: 0 0 0 3px var(--danger-soft); }
+
+.ac-pj-health { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--text-1); }
+
+.ac-pj-metric-health { display: flex; align-items: baseline; gap: 5px; font-size: 24px; }
+
+.ac-pj-mini-progress { justify-content: flex-end; min-width: 108px; }
+
+.ac-pj-mini-progress .ac-progress { width: 62px; flex: 0 0 auto; }
+
+/* 图例行 */
+.ac-pj-legend {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px 18px;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border-soft);
+}
+
+.ac-pj-legend-note { flex: 1 1 320px; font-size: 11.5px; color: var(--text-3); line-height: 1.65; }
+
+/* ============================================================
+   项目卡片网格
+   ============================================================ */
+.ac-pj-card {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  padding: var(--sp-4);
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xs);
+  min-width: 0;
+  text-align: left;
+  font-family: inherit;
+  cursor: pointer;
+  transition: box-shadow 0.16s ease, border-color 0.16s ease, transform 0.16s ease;
+}
+
+.ac-pj-card:hover { box-shadow: var(--shadow-sm); border-color: #c9cfda; transform: translateY(-1px); }
+
+.ac-pj-card--current { border-color: #c7c2f7; background: linear-gradient(180deg, #fbfaff 0%, #fff 42%); }
+
+.ac-pj-card-head { display: flex; align-items: flex-start; gap: 8px; min-width: 0; }
+
+.ac-pj-card-name { font-size: 14px; font-weight: 700; color: var(--text-1); line-height: 1.35; }
+
+.ac-pj-card-health { display: flex; align-items: center; gap: 6px; }
+
+.ac-pj-card-score {
+  margin-left: auto;
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--text-1);
+  font-variant-numeric: tabular-nums;
+}
+
+.ac-pj-card-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px 10px;
+  padding: 8px 10px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+}
+
+.ac-pj-card-stats span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11.5px;
+  color: var(--text-2);
+  font-variant-numeric: tabular-nums;
+  min-width: 0;
+}
+
+.ac-pj-card-stats svg { flex: 0 0 auto; color: var(--text-3); }
+
+.ac-pj-card-ms { display: flex; align-items: flex-start; gap: 7px; min-width: 0; }
+
+.ac-pj-card-ms > svg { margin-top: 2px; flex: 0 0 auto; }
+
+.ac-pj-card-foot {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-top: 9px;
+  border-top: 1px solid var(--border-soft);
+  margin-top: auto;
+}
+
+.ac-pj-card-exec { font-variant-numeric: tabular-nums; }
+
+/* ============================================================
+   手绘 SVG 图表共用
+   ============================================================ */
+.ac-pj-svg { display: block; width: 100%; height: auto; overflow: visible; }
+
+.ac-pj-svg-grid { stroke: #e8ebf0; stroke-width: 1; }
+
+.ac-pj-svg-rowline { stroke: var(--border-soft); stroke-width: 1; }
+
+.ac-pj-svg-axis { stroke: #b6bfcc; stroke-width: 1.2; stroke-dasharray: 4 3; }
+
+.ac-pj-svg-tick { font-size: 10px; fill: var(--text-3); font-family: var(--font-mono); }
+
+.ac-pj-svg-name { font-size: 11.5px; font-weight: 600; fill: var(--text-1); }
+
+.ac-pj-svg-value { font-size: 11px; font-weight: 700; fill: var(--text-2); font-family: var(--font-mono); }
+
+.ac-pj-svg-dotlabel { font-size: 9.5px; font-weight: 800; fill: var(--text-1); }
+
+.ac-pj-svg-track { fill: #eceff4; }
+
+.ac-pj-svg-axis-label { font-size: 10.5px; fill: var(--text-3); font-weight: 600; }
+
+.ac-pj-svg-zone { font-size: 11px; font-weight: 800; letter-spacing: 0.03em; fill: var(--text-3); }
+
+.ac-pj-svg-zone--danger { fill: #b91c1c; }
+.ac-pj-svg-zone--warn { fill: #b45309; }
+.ac-pj-svg-zone--info { fill: #1d4ed8; }
+.ac-pj-svg-zone--ok { fill: #047857; }
+
+.ac-pj-scatter-point { cursor: pointer; }
+
+.ac-pj-scatter-point:hover circle,
+.ac-pj-scatter-point:hover rect { filter: brightness(0.94); }
+
+.ac-pj-scatter-point:focus { outline: none; }
+
+.ac-pj-scatter-point:focus-visible circle { stroke-width: 3; }
+
+/* 风险热力矩阵格内文本 */
+.ac-pj-heat-score { font-size: 10px; font-weight: 700; fill: var(--text-3); font-family: var(--font-mono); }
+
+.ac-pj-heat-id { font-size: 9.5px; font-weight: 800; fill: #fff; font-family: var(--font-mono); }
+
+/* ============================================================
+   里程碑横向泳道时间线
+   ============================================================ */
+.ac-pj-tl-scroll { width: 100%; overflow-x: auto; }
+
+.ac-pj-tl-scroll::-webkit-scrollbar { height: 8px; }
+
+.ac-pj-tl-scroll::-webkit-scrollbar-thumb { background: #d8dde5; border-radius: 4px; }
+
+.ac-pj-tl-svg { width: auto; min-width: 1060px; }
+
+.ac-pj-tl-today { stroke: var(--brand); stroke-width: 1.6; stroke-dasharray: 5 3; }
+
+.ac-pj-tl-today-label { font-size: 10px; font-weight: 700; fill: #fff; }
+
+.ac-pj-tl-rowname { font-size: 11.5px; font-weight: 700; fill: var(--text-1); }
+
+.ac-pj-tl-rowmeta { font-size: 10px; fill: var(--text-3); font-family: var(--font-mono); }
+
+.ac-pj-tl-slip { stroke: var(--ai); stroke-width: 2; stroke-dasharray: 3 2; }
+
+.ac-pj-tl-slip-label { font-size: 9.5px; font-weight: 800; fill: var(--ai-deep); font-family: var(--font-mono); }
+
+.ac-pj-tl-date { font-size: 9.5px; fill: var(--text-3); font-family: var(--font-mono); }
+
+/* ============================================================
+   项目详情
+   ============================================================ */
+.ac-pj-detail-head { display: flex; gap: 14px; min-width: 0; }
+
+.ac-pj-detail-name { font-size: 17px; font-weight: 800; color: var(--text-1); letter-spacing: -0.2px; }
+
+.ac-pj-kv {
+  grid-template-columns: 104px minmax(0, 1fr) 104px minmax(0, 1fr);
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-soft);
+}
+
+.ac-pj-objective {
+  margin-top: 14px;
+  padding: 10px 12px;
+  background: var(--brand-soft);
+  border: 1px solid #d8dcfb;
+  border-left: 3px solid var(--brand);
+  border-radius: var(--radius-sm);
+}
+
+.ac-pj-objective-label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  color: var(--brand-deep);
+  margin-bottom: 4px;
+}
+
+.ac-pj-objective-text { font-size: 12.5px; color: var(--brand-ink); line-height: 1.75; }
+
+/* 环形仪表行 */
+.ac-pj-gauge-row {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-soft);
+}
+
+.ac-pj-gauge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 8px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  min-width: 0;
+}
+
+.ac-pj-gauge-value { font-size: 17px; font-weight: 800; fill: var(--text-1); font-family: var(--font-mono); }
+
+.ac-pj-gauge-unit { font-size: 9px; fill: var(--text-3); }
+
+.ac-pj-gauge-label { font-size: 12px; font-weight: 700; color: var(--text-1); }
+
+.ac-pj-gauge-sub { font-size: 10.5px; color: var(--text-3); text-align: center; line-height: 1.5; }
+
+.ac-pj-gate-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+
+.ac-pj-gate-actual { display: flex; flex-direction: column; gap: 6px; }
+
+.ac-pj-gate-row {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr);
+  gap: 4px 10px;
+  padding: 7px 10px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+}
+
+.ac-pj-gate-row > span:last-child { grid-column: 1 / -1; line-height: 1.6; }
+
+/* 关联迭代 / 发布单子卡片列表 */
+.ac-pj-sub-list { display: flex; flex-direction: column; gap: 10px; }
+
+.ac-pj-sub-item {
+  padding: 10px 12px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-soft);
+  border-left: 3px solid var(--brand);
+  border-radius: var(--radius-sm);
+  min-width: 0;
+}
+
+/* 平台外干系人头像（无 avatarColor 可用，统一中性底 + 虚线边） */
+.ac-pj-avatar-ext { background: #eef1f5; color: var(--text-2); border: 1px dashed #c3cad6; }
+
+/* ============================================================
+   AI 区块（诊断 / 预测 / 沟通建议 / 周报）
+   ============================================================ */
+.ac-pj-ai-card { border-color: #ddd0f7; }
+
+.ac-pj-ai-note { color: var(--ai-deep); opacity: 0.82; line-height: 1.6; }
+
+.ac-pj-diag-list { display: flex; flex-direction: column; gap: 10px; }
+
+.ac-pj-diag {
+  padding: 11px 13px;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--info);
+  border-radius: var(--radius-sm);
+  background: #fff;
+  min-width: 0;
+}
+
+.ac-pj-diag--danger { border-left-color: var(--danger); background: #fffcfc; }
+.ac-pj-diag--warn { border-left-color: var(--warn); background: #fffdf8; }
+.ac-pj-diag--info { border-left-color: var(--info); }
+.ac-pj-diag--ok { border-left-color: var(--ok); background: #fcfffd; }
+
+.ac-pj-diag-head { display: flex; align-items: center; gap: 8px; min-width: 0; }
+
+.ac-pj-diag-icon { display: flex; flex: 0 0 auto; color: var(--text-2); }
+
+.ac-pj-diag--danger .ac-pj-diag-icon { color: var(--danger); }
+.ac-pj-diag--warn .ac-pj-diag-icon { color: var(--warn); }
+.ac-pj-diag--ok .ac-pj-diag-icon { color: var(--ok); }
+
+.ac-pj-diag-title { font-size: 13px; font-weight: 700; color: var(--text-1); line-height: 1.45; }
+
+.ac-pj-diag-signals { display: flex; flex-direction: column; gap: 4px; margin-top: 8px; }
+
+.ac-pj-signal { display: flex; align-items: baseline; gap: 8px; min-width: 0; }
+
+.ac-pj-signal-source {
+  flex: 0 0 auto;
+  padding: 1px 6px;
+  border-radius: var(--radius-xs);
+  background: var(--bg-hover);
+  color: var(--text-3);
+  font-size: 10.5px;
+  font-weight: 600;
+}
+
+.ac-pj-signal-value { font-size: 12px; color: var(--text-2); line-height: 1.6; font-variant-numeric: tabular-nums; }
+
+.ac-pj-diag-action {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px dashed var(--border);
+  font-size: 12px;
+  color: var(--text-1);
+  line-height: 1.7;
+}
+
+.ac-pj-diag-action > svg { flex: 0 0 auto; margin-top: 4px; color: var(--ai); }
+
+/* AI 里程碑预测 */
+.ac-pj-forecast-list { display: flex; flex-direction: column; gap: 9px; }
+
+.ac-pj-forecast {
+  padding: 10px 12px;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  background: var(--bg-subtle);
+  min-width: 0;
+}
+
+.ac-pj-forecast--danger { border-color: #f6cdcd; background: #fffcfc; }
+.ac-pj-forecast--warn { border-color: #f7e0b4; background: #fffdf8; }
+
+.ac-pj-forecast-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+
+.ac-pj-forecast-bar { flex: 1 1 90px; min-width: 70px; max-width: 180px; }
+
+.ac-pj-forecast-text { margin-top: 6px; font-size: 12.5px; color: var(--text-2); line-height: 1.7; }
+
+.ac-pj-forecast-card {
+  padding: 12px;
+  border: 1px solid #ddd0f7;
+  border-radius: var(--radius-sm);
+  background: var(--ai-soft);
+  min-width: 0;
+}
+
+.ac-pj-forecast-date { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+
+.ac-pj-forecast-big {
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--text-1);
+  font-family: var(--font-mono);
+  line-height: 1.2;
+}
+
+/* AI 周报 */
+.ac-pj-report-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+
+.ac-pj-report-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.ac-pj-report-block {
+  padding: 12px;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  background: var(--bg-subtle);
+  min-width: 0;
+}
+
+.ac-pj-report-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: var(--text-2);
+  margin-bottom: 10px;
+}
+
+.ac-pj-report-cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 14px; }
+
+.ac-pj-report-col {
+  padding: 12px;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  background: #fff;
+  min-width: 0;
+}
+
+.ac-pj-textarea { min-height: 168px; font-size: 12.5px; line-height: 1.75; }
+
+/* AI vs 人工识别的占比条 */
+.ac-pj-split { display: flex; flex-direction: column; gap: 10px; }
+
+.ac-pj-split-row { display: flex; align-items: center; gap: 10px; min-width: 0; }
+
+.ac-pj-split-label { flex: 0 0 92px; }
+
+.ac-pj-split-row .ac-progress { flex: 1 1 auto; }
+
+.ac-pj-split-row .ac-progress-label { flex: 0 0 auto; min-width: 88px; }
+
+/* ============================================================
+   干系人：RACI 矩阵 / 四象限 / 沟通建议
+   ============================================================ */
+.ac-pj-sh-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.ac-pj-raci-table thead th { vertical-align: bottom; }
+
+.ac-pj-raci-corner { min-width: 210px; font-size: 11px; color: var(--text-3); }
+
+.ac-pj-raci-head { min-width: 96px; }
+
+.ac-pj-raci-head-id { display: block; color: var(--brand); font-weight: 800; margin-bottom: 2px; }
+
+.ac-pj-raci-head-name {
+  display: block;
+  font-size: 11px;
+  line-height: 1.45;
+  white-space: normal;
+  color: var(--text-2);
+}
+
+.ac-pj-raci-cell {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 22px;
+  border-radius: var(--radius-xs);
+  font-size: 11.5px;
+  font-weight: 800;
+  font-family: var(--font-mono);
+}
+
+.ac-pj-raci-cell--a { background: var(--danger); color: #fff; }
+.ac-pj-raci-cell--r { background: var(--brand-soft); color: var(--brand-deep); border: 1px solid #d8dcfb; }
+.ac-pj-raci-cell--c { background: var(--info-soft); color: #1d4ed8; border: 1px solid #cfe0fb; }
+.ac-pj-raci-cell--i { background: #f1f3f6; color: var(--text-2); border: 1px solid #e4e8ee; }
+
+.ac-pj-raci-legend { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 16px; }
+
+.ac-pj-raci-legend-item { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-2); }
+
+.ac-pj-raci-legend-note { flex: 1 1 320px; font-size: 11.5px; color: var(--text-3); line-height: 1.65; }
+
+.ac-pj-domain-list { display: flex; flex-direction: column; gap: 6px; }
+
+.ac-pj-domain-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  padding: 7px 10px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  min-width: 0;
+}
+
+.ac-pj-domain-item .ac-pj-raci-cell { margin-top: 1px; }
+
+/* AI 沟通建议 */
+.ac-pj-advice-body { display: flex; flex-direction: column; gap: 10px; }
+
+.ac-pj-advice {
+  padding: 11px 12px;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  background: var(--bg-subtle);
+  min-width: 0;
+}
+
+.ac-pj-advice--urgent { border-color: #f6cdcd; background: #fffcfc; }
+
+.ac-pj-advice-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+
+.ac-pj-advice-signals {
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.ac-pj-advice-signals li {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+  font-size: 11.5px;
+  color: var(--text-2);
+  line-height: 1.65;
+}
+
+.ac-pj-advice-foot {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 9px;
+  padding-top: 9px;
+  border-top: 1px dashed var(--border);
+}
+
+/* ============================================================
+   窄屏降级（1440×900 桌面端为主，窄屏仅做堆叠兜底）
+   ============================================================ */
+@media (max-width: 1180px) {
+  .ac-pj-kv { grid-template-columns: 96px minmax(0, 1fr); }
+
+  .ac-pj-report-grid,
+  .ac-pj-report-cols { grid-template-columns: minmax(0, 1fr); }
+
+  .ac-pj-gauge-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

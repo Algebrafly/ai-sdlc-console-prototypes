@@ -1,0 +1,286 @@
+/**
+ * PingCode 集成中心（integration）页面专属补充样式
+ * 仅使用 style.css 中已定义的设计 token，类名统一以 ac-ig- 前缀，避免污染全局类库。
+ */
+
+.ac-ig-page {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+}
+
+/* 区块小标题在弹性容器中由 gap 统一控制间距，避免与自身 margin 叠加 */
+.ac-ig-page > .ac-section-title {
+  margin-bottom: 0;
+}
+
+.ac-ig-provider-grid,
+.ac-ig-config-grid,
+.ac-ig-queue-grid {
+  align-items: start;
+}
+
+/* ---------- 服务商卡片 ---------- */
+.ac-ig-provider-name {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--text-1);
+  line-height: 1.4;
+}
+
+.ac-ig-provider-desc {
+  margin-top: 12px;
+  font-size: 12.5px;
+  color: var(--text-2);
+  line-height: 1.6;
+}
+
+.ac-ig-provider-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  margin-top: 12px;
+  padding: 8px 10px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+}
+
+.ac-ig-provider-meta .ac-mono {
+  min-width: 0;
+  font-size: 11.5px;
+}
+
+.ac-ig-provider-foot {
+  padding-top: 12px;
+  border-top: 1px solid var(--border-soft);
+}
+
+.ac-ig-tag-row {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+/* ---------- 队列概览统计条 ---------- */
+.ac-ig-stat-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-soft);
+}
+
+.ac-ig-stat {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ac-ig-stat-value {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-1);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- 同步开关 ---------- */
+.ac-ig-switch-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.ac-ig-switch-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 10px 0;
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--border-soft);
+  text-align: left;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.ac-ig-switch-row:last-child {
+  border-bottom: none;
+}
+
+.ac-ig-switch-label {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-1);
+  margin-bottom: 2px;
+}
+
+.ac-ig-switch {
+  position: relative;
+  flex: 0 0 auto;
+  width: 36px;
+  height: 20px;
+  border-radius: var(--radius-pill);
+  background: #d5dae2;
+  transition: background 0.16s ease;
+}
+
+.ac-ig-switch-dot {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: var(--shadow-xs);
+  transition: left 0.16s ease;
+}
+
+.ac-ig-switch--on {
+  background: var(--brand);
+}
+
+.ac-ig-switch--on .ac-ig-switch-dot {
+  left: 18px;
+}
+
+/* ---------- 主配置键值对 ---------- */
+.ac-ig-kv {
+  grid-template-columns: 88px minmax(0, 1fr);
+  align-items: start;
+}
+
+.ac-ig-kv dd {
+  min-width: 0;
+}
+
+.ac-ig-wrap {
+  word-break: break-all;
+  white-space: normal;
+}
+
+/* ---------- 映射配置 ---------- */
+.ac-ig-tabs-wrap {
+  padding: 0 var(--sp-5);
+}
+
+.ac-ig-subfilter {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 12px var(--sp-5) 4px;
+}
+
+.ac-ig-cell-title,
+.ac-ig-cell-desc {
+  max-width: 320px;
+  line-height: 1.55;
+  white-space: normal;
+}
+
+.ac-ig-cell-title {
+  font-size: 12.5px;
+  font-weight: 600;
+}
+
+.ac-ig-nowrap {
+  white-space: nowrap;
+}
+
+.ac-ig-ref-title {
+  max-width: 200px;
+}
+
+/* ---------- 重试消息列表 ---------- */
+.ac-ig-msg-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px var(--sp-5) 12px;
+  border-top: 1px solid var(--border-soft);
+  background: var(--bg-subtle);
+}
+
+.ac-ig-msg {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ---------- 服务商区块标题行（标题 + 接入状态统计） ---------- */
+.ac-ig-provider-head {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.ac-ig-provider-head .ac-section-title {
+  margin-bottom: 0;
+}
+
+/* 未接入服务商：整卡降饱和 + 虚线边框，与已连接 / 已暂停形成层级差 */
+.ac-ig-provider--unplugged {
+  background: var(--bg-subtle);
+  border-style: dashed;
+  box-shadow: none;
+}
+
+.ac-ig-provider--unplugged .ac-avatar {
+  opacity: 0.55;
+}
+
+.ac-ig-provider--unplugged .ac-ig-provider-meta {
+  background: #fff;
+  border-style: dashed;
+}
+
+/* ---------- 标识映射：关键字搜索与列宽 ---------- */
+.ac-ig-search {
+  width: 240px;
+}
+
+/* 标识映射表增至 8 列，标题列相应收窄（表格仍在 .ac-table-wrap 内可横向滚动） */
+.ac-ig-idmap-title {
+  max-width: 220px;
+}
+
+/* ---------- 死信人工重放 ---------- */
+.ac-ig-replay-hint {
+  margin: 12px var(--sp-5) 0;
+}
+
+.ac-ig-row-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+
+/* ---------- 窄屏降级 ---------- */
+@media (max-width: 768px) {
+  .ac-ig-stat-row {
+    gap: 8px 16px;
+  }
+
+  .ac-ig-stat-row .ac-divider-v {
+    display: none;
+  }
+
+  .ac-ig-cell-title,
+  .ac-ig-cell-desc,
+  .ac-ig-ref-title,
+  .ac-ig-idmap-title {
+    max-width: none;
+  }
+
+  .ac-ig-search {
+    width: 180px;
+  }
+}
